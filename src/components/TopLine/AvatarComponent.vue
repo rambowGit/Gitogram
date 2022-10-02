@@ -2,18 +2,22 @@
 других компонентах, то нужны разные стили для автарок. Поэтому испольуем :class
 */
 <template>
-  <div class="avatar__container" :class="isProfile ? 'profile-container' : ''">
+  <button
+    class="avatar__container"
+    :class="isProfile ? 'profile-container' : ''"
+    @click="onPress"
+  >
     <div :class="isProfile ? 'profile__img' : 'avatar__img'">
-      <img :src="user.pic" />
+      <img :src="userStory.pic" />
     </div>
-    <div v-if="!isProfile" class="avatar__name">{{ user.name }}</div>
-  </div>
+    <div v-if="!isProfile" class="avatar__name">{{ userStory.name }}</div>
+  </button>
 </template>
 <script>
 export default {
   name: "avatar-component",
   props: {
-    user: {
+    userStory: {
       type: Object,
       required: true,
     },
@@ -21,6 +25,11 @@ export default {
     isProfile: {
       type: Boolean,
       required: false,
+    },
+  },
+  methods: {
+    onPress() {
+      this.$emit("onPressUserStory");
     },
   },
 };
@@ -31,6 +40,13 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-right: 30px;
+  /* обнуление св-в кнопки */
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .profile-container {

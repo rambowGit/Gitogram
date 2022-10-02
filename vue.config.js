@@ -4,5 +4,12 @@ module.exports = defineConfig({
 });
 
 module.exports = {
-  publicPath: "/Gitogram/dist/"
-}
+  publicPath: "/Gitogram/dist/",
+};
+
+module.exports = {
+  devServer: {
+    host: "localhost",
+    port: 8080,
+  },
+};

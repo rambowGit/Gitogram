@@ -1,15 +1,18 @@
 /* Компонент содержит список пользователей. Отображает их в галерее header */
 <template lang="">
   <div class="stories__wrapper">
-    <div class="story_item" v-for="user in userList" :key="user.id">
+    <div class="story_item" v-for="story in userList" :key="story.id">
       <!-- каждого из пользователей передайм в пропсы компонента avatar-component -->
-      <avatar-component :user="user" />
+      <avatar-component
+        :userStory="story"
+        @onPressUserStory="userStoryPressed(story.id)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import AvatarComponent from "../avatar/AvatarComponent.vue";
+import AvatarComponent from "./AvatarComponent.vue";
 
 export default {
   name: "stories-component",
@@ -74,15 +77,16 @@ export default {
     getUsers() {
       console.log("users: ", this.userList);
     },
+    userStoryPressed($e) {
+      console.log("user story is pressed: ", $e);
+    },
   },
 };
 </script>
 <style scoped>
 .stories__wrapper {
   display: flex;
-  /* justify-content: space-between; */
-  /* padding: 0 120px; */
-  margin-left: 115px;
+  /* margin-left: 115px; */
 }
 .story_item {
   /* margin-right: 43px; */

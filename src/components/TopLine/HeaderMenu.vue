@@ -3,33 +3,35 @@
   <nav>
     <ul class="menu__list">
       <li class="menu__item">
-        <img :src="menu.home" alt="Home" />
+        <icon-component name="HomeIcon" />
       </li>
       <!-- текущий пользователь передается в пропсы компонента avatar-component -->
       <li class="menu__item">
         <avatar-component
           style="with: 37px"
-          :user="curentUser"
+          :userStory="curentUser"
           :isProfile="true"
         ></avatar-component>
       </li>
       <li class="menu__item">
-        <img :src="menu.logout" alt="Logout" />
+        <icon-component name="LogoutIcon" />
       </li>
     </ul>
   </nav>
 </template>
+
 <script>
-import AvatarComponent from "../avatar/AvatarComponent.vue";
+import AvatarComponent from "./AvatarComponent.vue";
+import IconComponent from "@/icons/IconComponent.vue";
+
 export default {
-  components: { AvatarComponent },
+  components: {
+    AvatarComponent,
+    IconComponent,
+  },
   name: "header-menu",
   data() {
     return {
-      menu: {
-        home: require("@/assets/img/menu/home.png"),
-        logout: require("@/assets/img/menu/logout.png"),
-      },
       curentUser: {
         id: 1,
         name: "Andrew",
@@ -47,11 +49,13 @@ ul {
   justify-content: space-between;
   display: flex;
   align-items: center;
-  width: 145px;
+  width: 140px;
   height: 37px;
   list-style-type: none;
 }
 .menu__item {
   margin: 0;
+  color: #262626;
+  width: 24px;
 }
 </style>
