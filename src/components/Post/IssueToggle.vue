@@ -5,7 +5,7 @@
     </div>
     <button
       class="toggler"
-      @click="onToggle"
+      @click="toggleHandler"
       :class="{ 'toggler--rotated': !isShown }"
     >
       <icon-component name="TogglerIcon" size="10px" />
@@ -25,9 +25,9 @@ export default {
     };
   },
   methods: {
-    onToggle() {
+    toggleHandler() {
       this.isShown = !this.isShown;
-      console.log(this.isShown);
+      this.$emit("togglerPressed", this.isShown);
     },
   },
 };

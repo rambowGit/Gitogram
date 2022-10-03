@@ -1,7 +1,7 @@
 <template>
-  <post-profile :story="post" />
+  <post-profile :story="post.author" />
   <div>
-    <post-content :userId="post.id" />
+    <post-content :post="post" />
   </div>
 </template>
 <script>
@@ -18,11 +18,6 @@ export default {
   components: {
     PostProfile,
     PostContent,
-  },
-  watch: {
-    post(val, prevVal) {
-      console.log("postHeader post:", val, prevVal);
-    },
   },
 };
 </script>

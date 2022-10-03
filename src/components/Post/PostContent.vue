@@ -1,15 +1,13 @@
 <template>
-  <div v-for="post in posts" :key="post.id">
-    <div v-if="userId === post.id" class="post__container">
-      <p class="post__name">
-        {{ post.name }}
-      </p>
-      <p class="post__text">
-        {{ post.text }}
-      </p>
-      <div class="reaction__container">
-        <reaction-component />
-      </div>
+  <div class="post__container">
+    <p class="post__name">
+      {{ post.name }}
+    </p>
+    <p class="post__text">
+      {{ post.text }}
+    </p>
+    <div class="reaction__container">
+      <reaction-component />
     </div>
   </div>
 </template>
@@ -19,26 +17,10 @@ export default {
   name: "post-content",
   components: { ReactionComponent },
   props: {
-    userId: {
-      type: Number,
+    post: {
+      type: Object,
       required: true,
     },
-  },
-  data() {
-    return {
-      posts: [
-        {
-          id: 1,
-          name: "Vue.js",
-          text: "JavaScript framework for building interactive web applications ⚡",
-        },
-        {
-          id: 2,
-          name: "React.js",
-          text: "Open source JavaScript library used for designing user interfaces",
-        },
-      ],
-    };
   },
 };
 </script>
