@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <div class="main__wrapper">
     <feed-page />
   </div>
-  <div class="main__wrapper"></div>
 </template>
 
 <script>

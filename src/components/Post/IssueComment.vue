@@ -28,9 +28,12 @@ export default {
 .comment__item {
   list-style-type: none;
   margin-bottom: 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 }
 .issue__auhtor-name {
-  display: inline-block;
+  /* display: inline-block; */
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -39,11 +42,12 @@ export default {
   margin-right: 10px;
 }
 .issue__comment {
-  display: inline-block;
+  /* display: inline-block; */
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
+  text-align: start;
 }
 </style>

@@ -1,13 +1,11 @@
 //отображение user issue posts
 <template>
-  <div class="post__container">
-    <div class="post__item" v-for="post in posts" :key="post.id">
-      <div class="post__header">
-        <post-header :post="post" />
-      </div>
-      <div class="post__footer">
-        <post-footer :post="post" />
-      </div>
+  <div class="post__item" v-for="post in posts" :key="post.id">
+    <div class="post__header">
+      <post-header :post="post" />
+    </div>
+    <div class="post__footer">
+      <post-footer :post="post" />
     </div>
   </div>
 </template>
@@ -82,9 +80,6 @@ export default {
 };
 </script>
 <style scoped>
-.post__container {
-  width: 980px;
-}
 .post__header {
   margin-bottom: 26px;
 }

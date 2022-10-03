@@ -1,5 +1,5 @@
 <template>
-  <div class="post-footer__comtainer">
+  <div class="post-footer__container">
     <div class="issue__toggler">
       <issue-toggle v-on:togglerPressed="onShowComments" />
     </div>
@@ -47,7 +47,7 @@ export default {
 .issue__comment {
   margin-bottom: 10px;
 }
-.post-footer__comtainer {
+.post-footer__container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

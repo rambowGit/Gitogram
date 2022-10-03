@@ -1,6 +1,6 @@
 <template>
   <post-profile :story="post.author" />
-  <div>
+  <div class="post-content">
     <post-content :post="post" />
   </div>
 </template>
@@ -21,4 +21,8 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.post-content {
+  margin-right: 10px;
+}
+</style>

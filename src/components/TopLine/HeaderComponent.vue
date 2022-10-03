@@ -32,10 +32,38 @@ export default {
   margin: 0 auto;
 }
 .header--top {
-  /* padding: 0 120px; */
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
   align-items: center;
+}
+
+/* iPad-mini */
+@media only screen and (max-width: 768px) {
+  .header__container {
+    max-width: 768px;
+    height: 262px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding-top: 40px;
+    margin: 0 20px;
+  }
+  .header--top {
+    margin-right: 25px;
+    margin-bottom: 30px;
+    padding-top: 30px;
+  }
+}
+
+/* iPhone */
+@media only screen and (max-width: 375px) {
+  .main__wrapper {
+  }
+  .container {
+    margin: 0 auto;
+    width: 768px;
+    /* background-color: #2c3e50; */
+  }
 }
 </style>

@@ -70,4 +70,22 @@ export default {
 .avatar__name {
   font-size: 12px;
 }
+
+/* iPad-mini */
+@media only screen and (max-width: 768px) {
+  .avatar__container {
+    margin-right: 12px;
+  }
+}
+
+/* iPhone */
+@media only screen and (max-width: 375px) {
+  .main__wrapper {
+  }
+  .container {
+    margin: 0 auto;
+    width: 768px;
+    /* background-color: #2c3e50; */
+  }
+}
 </style>

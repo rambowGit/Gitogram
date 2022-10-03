@@ -1,14 +1,14 @@
 <template>
   <div class="reaction__container">
     <div class="reaction__list">
-      <div class="reaction__item star">
+      <div class="reaction__item star btn--left btn--grey btn--align-center">
         <icon-component name="StarIcon" size="14px">Star</icon-component>
       </div>
-      <div class="reaction__item star">156K</div>
-      <div class="reaction__item fork">
+      <div class="reaction__item star btn--middle btn--align-center">156K</div>
+      <div class="reaction__item fork btn--middle btn--grey btn--align-center">
         <icon-component name="ForkIcon" size="14px">Fork</icon-component>
       </div>
-      <div class="reaction__item fork">4</div>
+      <div class="reaction__item fork btn--right btn--align-center">4</div>
     </div>
   </div>
 </template>
@@ -33,8 +33,9 @@ ul {
 }
 .reaction__item {
   color: #262626;
-  margin-right: 10px;
   min-width: 24px;
+  display: flex;
+  align-items: center;
 }
 .star {
   font-family: "Inter";
@@ -52,9 +53,38 @@ ul {
   font-weight: 600;
   font-size: 12px;
   line-height: 18px;
-
   display: flex;
   align-items: center;
   color: #24292e;
+}
+/* Github buttons */
+.btn--left {
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  padding: 0 12px;
+  height: 28px;
+  text-align: center;
+}
+.btn--middle {
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  padding: 0 12px;
+  height: 28px;
+  display: flex;
+}
+.btn--right {
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: 0 12px;
+  height: 28px;
+  text-align: center;
+}
+.btn--grey {
+  background: #fafbfc;
+}
+.btn--align-center {
+  align-items: center;
+  justify-content: center;
 }
 </style>

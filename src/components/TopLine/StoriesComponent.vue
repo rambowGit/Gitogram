@@ -94,4 +94,23 @@ export default {
 .storie_item:last-child {
   margin-right: 0;
 }
+
+/* iPad-mini */
+@media only screen and (max-width: 768px) {
+  .stories__wrapper {
+    display: flex;
+    justify-content: flex-start;
+  }
+}
+
+/* iPhone */
+@media only screen and (max-width: 375px) {
+  .main__wrapper {
+  }
+  .container {
+    margin: 0 auto;
+    width: 768px;
+    /* background-color: #2c3e50; */
+  }
+}
 </style>

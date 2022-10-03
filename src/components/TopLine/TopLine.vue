@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <header-component>
-      <template #headerLogo>
-        <header-logo />
-      </template>
+  <header-component>
+    <template #headerLogo>
+      <header-logo />
+    </template>
 
-      <template #headerMenu>
-        <header-menu />
-      </template>
+    <template #headerMenu>
+      <header-menu />
+    </template>
 
-      <template #stories>
-        <stories-component />
-      </template>
-    </header-component>
-  </div>
+    <template #stories>
+      <stories-component />
+    </template>
+  </header-component>
 </template>
 <script>
 import HeaderComponent from "./HeaderComponent.vue";
