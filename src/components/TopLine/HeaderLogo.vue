@@ -16,7 +16,19 @@ export default {
 }
 .logo__container img {
   width: 175px;
-  height: 35px;
+  /* height: 35px; */
   vertical-align: middle;
+}
+/* iPad-mini */
+@media only screen and (max-width: 768px) {
+}
+
+/* iPhone */
+@media only screen and (max-width: 375px) {
+  .logo__container img {
+    width: 100px;
+    /* height: 35px; */
+    vertical-align: middle;
+  }
 }
 </style>

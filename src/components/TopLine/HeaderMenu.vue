@@ -50,12 +50,25 @@ ul {
   display: flex;
   align-items: center;
   width: 140px;
-  height: 37px;
+  /* height: 37px; */
   list-style-type: none;
 }
 .menu__item {
   margin: 0;
   color: #262626;
   width: 24px;
+}
+
+/* iPad-mini */
+@media only screen and (max-width: 768px) {
+}
+
+/* iPhone */
+@media only screen and (max-width: 375px) {
+  .logo__container img {
+    width: 100px;
+    /* height: 35px; */
+    vertical-align: middle;
+  }
 }
 </style>

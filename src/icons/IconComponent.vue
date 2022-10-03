@@ -1,6 +1,7 @@
 <template>
   <div class="icon__container">
-    <div :style="{ width: size }">
+    <!-- <div :style="{ width: size }"> -->
+    <div>
       <component :is="name" />
     </div>
     <div id="text">
@@ -21,16 +22,16 @@ export default {
         return Object.keys(icons).includes(value);
       },
     },
-    size: {
-      type: String,
-      required: false,
-    },
+    // size: {
+    //   type: String,
+    //   required: false,
+    // },
   },
 };
 </script>
 <style scoped>
 .icon__container {
-  display: flex;
+  /* display: flex; */
 }
 #svg {
   width: 150px;

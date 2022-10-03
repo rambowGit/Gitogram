@@ -58,12 +58,19 @@ export default {
 
 /* iPhone */
 @media only screen and (max-width: 375px) {
-  .main__wrapper {
+  .header__container {
+    max-width: 375px;
+    height: 187px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding-top: 40px;
+    margin: 0 20px;
   }
-  .container {
-    margin: 0 auto;
-    width: 768px;
-    /* background-color: #2c3e50; */
+  .header--top {
+    margin-right: 25px;
+    margin-bottom: 30px;
+    padding-top: 30px;
   }
 }
 </style>

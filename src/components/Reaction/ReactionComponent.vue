@@ -2,11 +2,15 @@
   <div class="reaction__container">
     <div class="reaction__list">
       <div class="reaction__item star btn--left btn--grey btn--align-center">
-        <icon-component name="StarIcon" size="14px">Star</icon-component>
+        <div class="resizable-star">
+          <icon-component name="StarIcon" size="14px" />Star
+        </div>
       </div>
       <div class="reaction__item star btn--middle btn--align-center">156K</div>
       <div class="reaction__item fork btn--middle btn--grey btn--align-center">
-        <icon-component name="ForkIcon" size="14px">Fork</icon-component>
+        <div class="resizable-fork">
+          <icon-component name="ForkIcon" size="14px">Fork</icon-component>
+        </div>
       </div>
       <div class="reaction__item fork btn--right btn--align-center">4</div>
     </div>
@@ -33,7 +37,7 @@ ul {
 }
 .reaction__item {
   color: #262626;
-  min-width: 24px;
+  min-width: 14px;
   display: flex;
   align-items: center;
 }
@@ -48,7 +52,6 @@ ul {
   color: #24292e;
 }
 .fork {
-  /* font-family: "SF Pro Text"; */
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
@@ -86,5 +89,11 @@ ul {
 .btn--align-center {
   align-items: center;
   justify-content: center;
+}
+.resizable-star {
+  width: 14px;
+}
+.resizable-fork {
+  width: 12px;
 }
 </style>
