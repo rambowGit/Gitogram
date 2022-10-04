@@ -1,11 +1,7 @@
 <template>
   <div class="icon__container">
-    <!-- <div :style="{ width: size }"> -->
     <div>
       <component :is="name" />
-    </div>
-    <div id="text">
-      <slot></slot>
     </div>
   </div>
 </template>
@@ -22,10 +18,6 @@ export default {
         return Object.keys(icons).includes(value);
       },
     },
-    // size: {
-    //   type: String,
-    //   required: false,
-    // },
   },
 };
 </script>

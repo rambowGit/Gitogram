@@ -1,16 +1,18 @@
 <template>
   <div class="reaction__container">
     <div class="reaction__list">
-      <div class="reaction__item star btn--left btn--grey btn--align-center">
+      <div class="reaction__item btn--left btn--grey btn--align-center">
         <div class="resizable-star">
-          <icon-component name="StarIcon" size="14px" />Star
+          <icon-component name="StarIcon" />
         </div>
+        <div class="icon-text star">Star</div>
       </div>
       <div class="reaction__item star btn--middle btn--align-center">156K</div>
-      <div class="reaction__item fork btn--middle btn--grey btn--align-center">
+      <div class="reaction__item btn--middle btn--grey btn--align-center">
         <div class="resizable-fork">
-          <icon-component name="ForkIcon" size="14px">Fork</icon-component>
+          <icon-component name="ForkIcon" />
         </div>
+        <div class="icon-text fork">Star</div>
       </div>
       <div class="reaction__item fork btn--right btn--align-center">4</div>
     </div>
@@ -95,5 +97,11 @@ ul {
 }
 .resizable-fork {
   width: 12px;
+}
+.reaction__item > div {
+  display: inline-block;
+}
+.icon-text {
+  margin-left: 5px;
 }
 </style>

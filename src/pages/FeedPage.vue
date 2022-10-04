@@ -22,11 +22,11 @@ export default {
 </script>
 <style scoped>
 .top-line {
-  margin-bottom: 32px;
+  margin-bottom: 35px;
 }
 .post-container {
-  margin: 0 230px;
-  /* width: 980px; */
+  margin: 0 auto;
+  max-width: 980px;
 }
 
 /* iPad-mini */

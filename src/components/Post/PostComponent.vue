@@ -81,7 +81,7 @@ export default {
 </script>
 <style scoped>
 .post__header {
-  margin-bottom: 26px;
+  margin-bottom: 20px;
 }
 .post__item {
   margin-bottom: 25px;

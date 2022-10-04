@@ -45,7 +45,7 @@ export default {
   margin-bottom: 10px;
 }
 .issue__comment {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .post-footer__container {
   display: flex;

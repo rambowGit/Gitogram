@@ -23,6 +23,6 @@ export default {
 </script>
 <style scoped>
 .post-content {
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 </style>

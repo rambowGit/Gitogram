@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import ReactionComponent from "../Reaction/ReactionComponent.vue";
+import ReactionComponent from "./ReactionComponent.vue";
 export default {
   name: "post-content",
   components: { ReactionComponent },

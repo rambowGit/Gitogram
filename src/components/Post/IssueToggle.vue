@@ -1,14 +1,12 @@
 <template>
-  <div class="toogler__container">
-    <div class="toggler__text">
+  <div class="toogler__container" @click="toggleHandler">
+    <div class="toggler-text">
       {{ isShown ? "Hide issues" : "View issues" }}
     </div>
-    <button
-      class="toggler"
-      @click="toggleHandler"
-      :class="{ 'toggler--rotated': !isShown }"
-    >
-      <icon-component name="TogglerIcon" size="10px" />
+    <button class="toggler" :class="{ 'toggler--rotated': !isShown }">
+      <div class="toggler-btn">
+        <icon-component name="TogglerIcon" />
+      </div>
     </button>
   </div>
 </template>
@@ -37,8 +35,9 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  cursor: pointer;
 }
-.toggler__text {
+.toggler-text {
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
@@ -46,6 +45,9 @@ export default {
   line-height: 160%;
   color: #292929;
   margin-right: 5px;
+}
+.toggler-btn {
+  width: 10px;
 }
 .toggler {
   border: none;

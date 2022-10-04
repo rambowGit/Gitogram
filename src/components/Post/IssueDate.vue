@@ -14,7 +14,7 @@ export default {
 };
 </script>
 <style>
-.issue_date {
+.issue__date {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
