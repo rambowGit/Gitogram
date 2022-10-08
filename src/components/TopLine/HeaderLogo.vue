@@ -6,7 +6,7 @@
 </template>
 <script>
 export default {
-  name: "header-logo",
+	name: "header-logo",
 };
 </script>
 <style scoped>

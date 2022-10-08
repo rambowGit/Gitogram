@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  name: "start-icon",
+	name: "start-icon",
 };
 </script>
 <style></style>

@@ -7,17 +7,23 @@
       <post-component />
     </div>
   </div>
+<!-- test -->
+  <div style="margin: 50px">
+    <slide-component />
+  </div>
 </template>
 <script>
-import TopLine from "@/components/TopLine/TopLine.vue";
-import PostComponent from "@/components/Post/PostComponent.vue";
+import TopLine from "../components/TopLine/TopLine.vue";
+import PostComponent from "../components/Post/PostComponent.vue";
+import SlideComponent from "../components/Slider/SlideComponent.vue";
 
 export default {
-  name: "header-page",
-  components: {
-    TopLine,
-    PostComponent,
-  },
+	name: "header-page",
+	components: {
+		TopLine,
+		PostComponent,
+		SlideComponent,
+	},
 };
 </script>
 <style scoped>

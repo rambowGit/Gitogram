@@ -16,16 +16,16 @@
 import AvatarComponent from "@/components/TopLine/AvatarComponent.vue";
 
 export default {
-  name: "post-profile",
-  components: {
-    AvatarComponent,
-  },
-  props: {
-    story: {
-      type: Object,
-      required: true,
-    },
-  },
+	name: "post-profile",
+	components: {
+		AvatarComponent,
+	},
+	props: {
+		story: {
+			type: Object,
+			required: true,
+		},
+	},
 };
 </script>
 <style scoped>

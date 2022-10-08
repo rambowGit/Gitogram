@@ -13,7 +13,7 @@
 </template>
 <script>
 export default {
-  name: "home-icon",
+	name: "home-icon",
 };
 </script>
 <style></style>

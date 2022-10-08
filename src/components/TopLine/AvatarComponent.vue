@@ -10,28 +10,33 @@
     <div :class="isProfile ? 'profile__img' : 'avatar__img'">
       <img :src="userStory.pic" />
     </div>
-    <div v-if="!isProfile" class="avatar__name">{{ userStory.name }}</div>
+    <div v-if="!isProfile" class="avatar__name">{{ username }}</div>
   </button>
 </template>
 <script>
 export default {
-  name: "avatar-component",
-  props: {
-    userStory: {
-      type: Object,
-      required: true,
-    },
-    // когда вызываем автарку для профиля
-    isProfile: {
-      type: Boolean,
-      required: false,
-    },
-  },
-  methods: {
-    onPress() {
-      this.$emit("onPressUserStory");
-    },
-  },
+	name: "avatar-component",
+	emits: ["onPressUserStory"],
+	props: {
+		userStory: {
+			type: Object,
+			required: true,
+		},
+		username: {
+			type: String,
+			required: false,
+		},
+		// когда вызываем автарку для профиля
+		isProfile: {
+			type: Boolean,
+			required: false,
+		},
+	},
+	methods: {
+		onPress() {
+			this.$emit("onPressUserStory");
+		},
+	},
 };
 </script>
 <style scoped>
@@ -57,10 +62,13 @@ export default {
   border: 2px solid #a6328d;
   border-radius: 50%;
   padding: 5px;
-  /* width: 90px; */
+  width: 80px;
+  height: 80px;
 }
 .avatar__img img {
-  width: 80px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .profile__img img {

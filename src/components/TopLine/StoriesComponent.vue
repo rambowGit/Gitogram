@@ -5,6 +5,7 @@
       <!-- каждого из пользователей передайм в пропсы компонента avatar-component -->
       <avatar-component
         :userStory="story"
+				:username="story.name"
         @onPressUserStory="userStoryPressed(story.id)"
       />
     </div>
@@ -15,72 +16,72 @@
 import AvatarComponent from "./AvatarComponent.vue";
 
 export default {
-  name: "stories-component",
-  components: { AvatarComponent },
-  data() {
-    return {
-      userList: [
-        {
-          id: 1,
-          name: "Andrew",
-          pic: require("@/assets/img/avatars/ProfilePic_Andrew.png"),
-        },
-        {
-          id: 2,
-          name: "Camille",
-          pic: require("@/assets/img/avatars/ProfilePic_Camille.png"),
-        },
-        {
-          id: 3,
-          name: "Camilr",
-          pic: require("@/assets/img/avatars/ProfilePic_Camilr.png"),
-        },
-        {
-          id: 4,
-          name: "Can",
-          pic: require("@/assets/img/avatars/ProfilePic_Can.png"),
-        },
-        {
-          id: 5,
-          name: "Diself",
-          pic: require("@/assets/img/avatars/ProfilePic_Diself.png"),
-        },
-        {
-          id: 6,
-          name: "Gartor",
-          pic: require("@/assets/img/avatars/ProfilePic_Gartor.png"),
-        },
-        {
-          id: 7,
-          name: "Iloveanime",
-          pic: require("@/assets/img/avatars/ProfilePic_Iloveanime.png"),
-        },
-        {
-          id: 8,
-          name: "Josh",
-          pic: require("@/assets/img/avatars/ProfilePic_Josh.png"),
-        },
-        {
-          id: 9,
-          name: "Marselle",
-          pic: require("@/assets/img/avatars/ProfilePic_Marselle.png"),
-        },
-        {
-          id: 10,
-          name: "Piter",
-          pic: require("@/assets/img/avatars/ProfilePic_Piter.png"),
-        },
-      ],
-    };
-  },
-  methods: {
-    getUsers() {
-      console.log("users: ", this.userList);
-    },
-    userStoryPressed($e) {
-      console.log("user story is pressed: ", $e);
-    },
-  },
+	name: "stories-component",
+	components: { AvatarComponent },
+	data() {
+		return {
+			userList: [
+				{
+					id: 1,
+					name: "Andrew",
+					pic: require("../../assets/img/avatars/ProfilePic_Andrew.png"),
+				},
+				{
+					id: 2,
+					name: "Camille",
+					pic: require("../../assets/img/avatars/ProfilePic_Camille.png"),
+				},
+				{
+					id: 3,
+					name: "Camilr",
+					pic: require("../../assets/img/avatars/ProfilePic_Camilr.png"),
+				},
+				{
+					id: 4,
+					name: "Can",
+					pic: require("../../assets/img/avatars/ProfilePic_Can.png"),
+				},
+				{
+					id: 5,
+					name: "Diself",
+					pic: require("../../assets/img/avatars/ProfilePic_Diself.png"),
+				},
+				{
+					id: 6,
+					name: "Gartor",
+					pic: require("../../assets/img/avatars/ProfilePic_Gartor.png"),
+				},
+				{
+					id: 7,
+					name: "Iloveanime",
+					pic: require("../../assets/img/avatars/ProfilePic_Iloveanime.png"),
+				},
+				{
+					id: 8,
+					name: "Josh",
+					pic: require("../../assets/img/avatars/ProfilePic_Josh.png"),
+				},
+				{
+					id: 9,
+					name: "Marselle",
+					pic: require("../../assets/img/avatars/ProfilePic_Marselle.png"),
+				},
+				{
+					id: 10,
+					name: "Piter",
+					pic: require("../../assets/img/avatars/ProfilePic_Piter.png"),
+				},
+			],
+		};
+	},
+	methods: {
+		getUsers() {
+			console.log("users: ", this.userList);
+		},
+		userStoryPressed($e) {
+			console.log("user story is pressed: ", $e);
+		},
+	},
 };
 </script>
 <style scoped>

@@ -20,13 +20,13 @@ import HeaderLogo from "./HeaderLogo.vue";
 import HeaderMenu from "./HeaderMenu.vue";
 
 export default {
-  name: "top-line",
-  components: {
-    HeaderComponent,
-    StoriesComponent,
-    HeaderLogo,
-    HeaderMenu,
-  },
+	name: "top-line",
+	components: {
+		HeaderComponent,
+		StoriesComponent,
+		HeaderLogo,
+		HeaderMenu,
+	},
 };
 </script>
 <style scoped></style>

@@ -8,13 +8,13 @@
 </template>
 <script>
 export default {
-  name: "issue-comment",
-  props: {
-    issues: {
-      type: Array,
-      required: false,
-    },
-  },
+	name: "issue-comment",
+	props: {
+		issues: {
+			type: Array,
+			required: false,
+		},
+	},
 };
 </script>
 <style scoped>

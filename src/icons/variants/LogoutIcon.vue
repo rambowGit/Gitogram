@@ -13,7 +13,7 @@
 </template>
 <script>
 export default {
-  name: "logout-icon",
+	name: "logout-icon",
 };
 </script>
 <style></style>

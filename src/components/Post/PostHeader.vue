@@ -7,18 +7,19 @@
 <script>
 import PostProfile from "./PostProfile.vue";
 import PostContent from "./PostContent.vue";
+
 export default {
-  name: "post-header",
-  props: {
-    post: {
-      type: Object,
-      required: true,
-    },
-  },
-  components: {
-    PostProfile,
-    PostContent,
-  },
+	name: "post-header",
+	props: {
+		post: {
+			type: Object,
+			required: true,
+		},
+	},
+	components: {
+		PostProfile,
+		PostContent,
+	},
 };
 </script>
 <style scoped>

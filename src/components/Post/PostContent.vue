@@ -16,24 +16,25 @@
 </template>
 <script>
 import ReactionComponent from "./ReactionComponent.vue";
+
 export default {
-  name: "post-content",
-  components: { ReactionComponent },
-  props: {
-    post: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      postText: "",
-    };
-  },
-  mounted() {
-    this.postText = this.$refs["postText"].textContent;
-  },
-  methods: {},
+	name: "post-content",
+	components: { ReactionComponent },
+	props: {
+		post: {
+			type: Object,
+			required: true,
+		},
+	},
+	data() {
+		return {
+			postText: "",
+		};
+	},
+	mounted() {
+		this.postText = this.$refs.postText.textContent;
+	},
+	methods: {},
 };
 </script>
 <style scoped>

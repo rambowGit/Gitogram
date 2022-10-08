@@ -12,22 +12,23 @@
 </template>
 <script>
 import IconComponent from "@/icons/IconComponent.vue";
+
 export default {
-  name: "issue-toggle",
-  components: {
-    IconComponent,
-  },
-  data() {
-    return {
-      isShown: true,
-    };
-  },
-  methods: {
-    toggleHandler() {
-      this.isShown = !this.isShown;
-      this.$emit("togglerPressed", this.isShown);
-    },
-  },
+	name: "issue-toggle",
+	components: {
+		IconComponent,
+	},
+	data() {
+		return {
+			isShown: true,
+		};
+	},
+	methods: {
+		toggleHandler() {
+			this.isShown = !this.isShown;
+			this.$emit("togglerPressed", this.isShown);
+		},
+	},
 };
 </script>
 <style scoped>

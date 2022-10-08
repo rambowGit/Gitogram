@@ -13,7 +13,7 @@
 </template>
 <script>
 export default {
-  name: "toggler-icon",
+	name: "toggler-icon",
 };
 </script>
 <style></style>

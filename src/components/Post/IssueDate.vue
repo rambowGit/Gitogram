@@ -5,12 +5,12 @@
 </template>
 <script>
 export default {
-  name: "issue-date",
-  data() {
-    return {
-      issueDate: "15 may",
-    };
-  },
+	name: "issue-date",
+	data() {
+		return {
+			issueDate: "15 may",
+		};
+	},
 };
 </script>
 <style>

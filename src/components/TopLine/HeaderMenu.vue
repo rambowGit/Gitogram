@@ -22,23 +22,23 @@
 
 <script>
 import AvatarComponent from "./AvatarComponent.vue";
-import IconComponent from "@/icons/IconComponent.vue";
+import IconComponent from "../../icons/IconComponent.vue";
 
 export default {
-  components: {
-    AvatarComponent,
-    IconComponent,
-  },
-  name: "header-menu",
-  data() {
-    return {
-      curentUser: {
-        id: 1,
-        name: "Andrew",
-        pic: require("@/assets/img/avatars/ProfilePic_Andrew.png"),
-      },
-    };
-  },
+	components: {
+		AvatarComponent,
+		IconComponent,
+	},
+	name: "header-menu",
+	data() {
+		return {
+			curentUser: {
+				id: 1,
+				name: "Andrew",
+				pic: require("../../assets/img/avatars/ProfilePic_Andrew.png"),
+			},
+		};
+	},
 };
 </script>
 <style scoped>

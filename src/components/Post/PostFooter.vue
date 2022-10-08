@@ -15,29 +15,30 @@
 import IssueToggle from "./IssueToggle.vue";
 import IssueComment from "./IssueComment.vue";
 import IssueDate from "./IssueDate.vue";
+
 export default {
-  name: "post-footer",
-  components: {
-    IssueToggle,
-    IssueComment,
-    IssueDate,
-  },
-  props: {
-    post: {
-      type: Object,
-      required: false,
-    },
-  },
-  data() {
-    return {
-      isShownComment: true,
-    };
-  },
-  methods: {
-    onShowComments(isShown) {
-      this.isShownComment = isShown;
-    },
-  },
+	name: "post-footer",
+	components: {
+		IssueToggle,
+		IssueComment,
+		IssueDate,
+	},
+	props: {
+		post: {
+			type: Object,
+			required: false,
+		},
+	},
+	data() {
+		return {
+			isShownComment: true,
+		};
+	},
+	methods: {
+		onShowComments(isShown) {
+			this.isShownComment = isShown;
+		},
+	},
 };
 </script>
 <style scoped>

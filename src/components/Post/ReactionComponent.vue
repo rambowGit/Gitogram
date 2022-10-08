@@ -22,10 +22,10 @@
 import IconComponent from "@/icons/IconComponent.vue";
 
 export default {
-  name: "reaction-component",
-  components: {
-    IconComponent,
-  },
+	name: "reaction-component",
+	components: {
+		IconComponent,
+	},
 };
 </script>
 <style scoped>
