@@ -16,7 +16,6 @@ export default {
 	methods: {
 		emitOnFinish() {
 			this.$emit("onFinish");
-			console.log("onFinish");
 		}
 	},
 	mounted() {
@@ -32,8 +31,9 @@ export default {
 	},
 };
 </script>
-<style>
+<style scoped>
 .bar{
+	width: 100%;
   background: rgba(49, 174, 84, 0.3);
   border-radius: 1px;
   height: 2px;

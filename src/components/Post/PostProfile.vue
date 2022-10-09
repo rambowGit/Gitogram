@@ -5,6 +5,7 @@
         style="with: 37px"
         :userStory="story"
         :isProfile="true"
+				:avatarWidth="44"
       />
     </div>
     <div class="user-name">

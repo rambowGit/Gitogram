@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Inter");
+
 html,
 body {
   height: 100%;
@@ -33,7 +35,7 @@ button {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  min-width: 100vw;
+  /* min-width: 100vw; */
   overflow: hidden;
 }
 .container {

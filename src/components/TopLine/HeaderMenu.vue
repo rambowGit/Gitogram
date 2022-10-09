@@ -11,6 +11,7 @@
           style="with: 37px"
           :userStory="curentUser"
           :isProfile="true"
+					:avatarWidth=37
         ></avatar-component>
       </li>
       <li class="menu__item">
@@ -23,6 +24,7 @@
 <script>
 import AvatarComponent from "./AvatarComponent.vue";
 import IconComponent from "../../icons/IconComponent.vue";
+import  {getPopularRepos} from "../../services/GitHub.service";
 
 export default {
 	components: {
@@ -39,6 +41,15 @@ export default {
 			},
 		};
 	},
+	async created(){
+		try {
+			const { data } = await getPopularRepos();
+			this.items = data.items;
+			console.log("items: ", this.items);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 };
 </script>
 <style scoped>

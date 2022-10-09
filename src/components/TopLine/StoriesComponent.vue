@@ -1,11 +1,11 @@
 /* Компонент содержит список пользователей. Отображает их в галерее header */
 <template lang="">
   <div class="stories__wrapper">
-    <div class="story_item" v-for="story in userList" :key="story.id">
+    <div class="story_item" v-for="repo in items" :key="repo.id">
       <!-- каждого из пользователей передайм в пропсы компонента avatar-component -->
       <avatar-component
-        :userStory="story"
-				:username="story.name"
+        :userStory="repo.owner"
+				:username="repo.name"
         @onPressUserStory="userStoryPressed(story.id)"
       />
     </div>
@@ -14,12 +14,14 @@
 
 <script>
 import AvatarComponent from "./AvatarComponent.vue";
+import  {getPopularRepos} from "../../services/GitHub.service";
 
 export default {
 	name: "stories-component",
 	components: { AvatarComponent },
 	data() {
 		return {
+			items: [],
 			userList: [
 				{
 					id: 1,
@@ -82,6 +84,16 @@ export default {
 			console.log("user story is pressed: ", $e);
 		},
 	},
+
+	async created(){
+		try {
+			const { data } = await getPopularRepos();
+			this.items = data.items;
+			console.log("items: ", this.items);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 };
 </script>
 <style scoped>

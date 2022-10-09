@@ -7,8 +7,11 @@
     :class="isProfile ? 'profile-container' : ''"
     @click="onPress"
   >
-    <div :class="isProfile ? 'profile__img' : 'avatar__img'">
-      <img :src="userStory.pic" />
+    <div 
+		:class="isProfile ? 'profile__img' : 'avatar__img'"
+		:style="{width: avatarWidth + 'px'}"
+		>
+      <img :src="userStory.avatar_url" />
     </div>
     <div v-if="!isProfile" class="avatar__name">{{ username }}</div>
   </button>
@@ -18,6 +21,11 @@ export default {
 	name: "avatar-component",
 	emits: ["onPressUserStory"],
 	props: {
+		avatarWidth: {
+			type: Number,
+			default: 80,
+			required: false
+		},
 		userStory: {
 			type: Object,
 			required: true,
@@ -37,6 +45,9 @@ export default {
 			this.$emit("onPressUserStory");
 		},
 	},
+	mounted() {
+		console.log("userStory ", this.userStory);
+	}
 };
 </script>
 <style scoped>
@@ -65,13 +76,13 @@ export default {
   width: 80px;
   height: 80px;
 }
-.avatar__img img {
+img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.profile__img img {
+.profile__img {
   width: 37px;
 }
 
