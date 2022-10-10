@@ -2,7 +2,6 @@
   <div class="post-profile__container">
     <div class="avatar">
       <avatar-component
-        style="with: 37px"
         :userStory="story"
         :isProfile="true"
 				:avatarWidth="44"

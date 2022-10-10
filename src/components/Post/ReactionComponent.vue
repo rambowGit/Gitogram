@@ -7,25 +7,36 @@
         </div>
         <div class="icon-text star">Star</div>
       </div>
-      <div class="reaction__item star btn--middle btn--align-center">156K</div>
+      <div class="reaction__item star btn--middle btn--align-center">{{stargazersCount}}</div>
       <div class="reaction__item btn--middle btn--grey btn--align-center">
         <div class="resizable-fork">
           <icon-component name="ForkIcon" />
         </div>
-        <div class="icon-text fork">Star</div>
+        <div class="icon-text fork">Fork</div>
       </div>
-      <div class="reaction__item fork btn--right btn--align-center">4</div>
+      <div class="reaction__item fork btn--right btn--align-center">{{forksCount}}</div>
     </div>
   </div>
 </template>
 <script>
 import IconComponent from "@/icons/IconComponent.vue";
 
+
 export default {
 	name: "reaction-component",
 	components: {
 		IconComponent,
 	},
+	props: {
+		stargazersCount: {
+			type: Number,
+			required: false
+		},
+		forksCount: {
+			type: Number,
+			required: false
+		}
+	}
 };
 </script>
 <style scoped>

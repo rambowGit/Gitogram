@@ -2,7 +2,7 @@
   <div class="post__content-container">
     <div class="post__content-about">
       <p class="post__content-name">
-        {{ post.name }}
+        <a v-bind:href="post.html_url" target="_blank">{{ post.name }}</a>
       </p>
       <p ref="postText" class="post__content-text">
         {{ post.description }}
@@ -10,7 +10,10 @@
     </div>
 
     <div class="reaction__container">
-      <reaction-component />
+      <reaction-component
+				:stargazersCount="post.stargazers_count"
+				:forksCount="post.forks_count"
+				/>
     </div>
   </div>
 </template>
@@ -64,6 +67,10 @@ export default {
   line-height: 28px;
   color: #292929;
   margin-bottom: 15px;
+}
+.post__content-name a {
+	text-decoration: none;
+	color: #292929;
 }
 .post__content-text {
   font-family: "Inter";

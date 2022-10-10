@@ -84,7 +84,7 @@ export default {
 		try {
 			const { data } = await getPopularRepos();
 			this.items = data.items;
-			console.log("items: ", this.items);
+			// console.log("items: ", this.items);
 		} catch (error) {
 			console.log(error);
 		}

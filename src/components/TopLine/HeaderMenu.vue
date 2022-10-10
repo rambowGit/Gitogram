@@ -8,7 +8,6 @@
       <!-- текущий пользователь передается в пропсы компонента avatar-component -->
       <li class="menu__item">
         <avatar-component
-          style="with: 37px"
           :userStory="repo"
           :isProfile="true"
 					:avatarWidth=37
