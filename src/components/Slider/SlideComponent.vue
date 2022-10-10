@@ -7,13 +7,13 @@
 			<div class="avatar-container">
 				<div class="avatar-img">
 				<avatar-component 
-				:userStory="user"
+				:userStory="repo"
 				:isProfile=true
 				:avatarWidth="32"
 			/>
 			</div>
 				<div class="avatar-name">
-					{{user.name}}
+					{{repo.name}}
 				</div>
 			</div>
 			
@@ -62,10 +62,10 @@ export default {
 	},
 	data: function () {
 		return {
-			user: {
+			repo: {
 				id: 1,
-				name: "React.reposit",
-				pic: require("../../assets/img/avatars/ProfilePic_Andrew.png"),
+				name: "Andrew",
+				avatar_url: require("../../assets/img/avatars/ProfilePic_Andrew.png"),
 			},			
 		};
 	}

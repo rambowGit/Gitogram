@@ -1,6 +1,6 @@
 /* Меню в правой части шапки */
 <template>
-  <nav>
+	<nav>
     <ul class="menu__list">
       <li class="menu__item">
         <icon-component name="HomeIcon" size="24px" />
@@ -9,10 +9,10 @@
       <li class="menu__item">
         <avatar-component
           style="with: 37px"
-          :userStory="curentUser"
+          :userStory="repo"
           :isProfile="true"
 					:avatarWidth=37
-        ></avatar-component>
+        />
       </li>
       <li class="menu__item">
         <icon-component name="LogoutIcon" size="25px" />
@@ -34,10 +34,10 @@ export default {
 	name: "header-menu",
 	data() {
 		return {
-			curentUser: {
+			repo: {
 				id: 1,
 				name: "Andrew",
-				pic: require("../../assets/img/avatars/ProfilePic_Andrew.png"),
+				avatar_url: require("../../assets/img/avatars/ProfilePic_Andrew.png"),
 			},
 		};
 	},
@@ -45,7 +45,7 @@ export default {
 		try {
 			const { data } = await getPopularRepos();
 			this.items = data.items;
-			console.log("items: ", this.items);
+			// console.log("items: ", this.items);
 		} catch (error) {
 			console.log(error);
 		}

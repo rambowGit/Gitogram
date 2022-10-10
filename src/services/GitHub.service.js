@@ -1,5 +1,13 @@
 import axios from "axios";
 
+// helper date
+const getRequiredDate = (daysMinus) => {
+	const weekMS = daysMinus * 24 * 60 * 60 * 1000;
+	const weekAgo = new Date(Date.now() - weekMS);
+	return weekAgo.toISOString().split("T")[0];
+};
+
+
 
 // получение популярных репозиториев за последние семь дней
 export function getPopularRepos() {
@@ -17,10 +25,8 @@ export function getPopularRepos() {
 		
 }
 
-// helper date
-const getRequiredDate = (daysMinus) => {
-	const weekMS = daysMinus * 24 * 60 * 60 * 1000;
-	const weekAgo = new Date(Date.now() - weekMS);
-	return weekAgo.toISOString().split("T")[0];
-};
 
+// получение issue по для указанного репозитория
+export const getIssuesForRepo = (repoOwner, repoName) => {
+	return axios.get(`https://api.github.com/repos/${repoOwner}/${repoName}/issues`);
+};

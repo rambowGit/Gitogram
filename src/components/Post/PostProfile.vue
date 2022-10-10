@@ -9,7 +9,7 @@
       />
     </div>
     <div class="user-name">
-      {{ story.name }}
+      {{ story.login }}
     </div>
   </div>
 </template>

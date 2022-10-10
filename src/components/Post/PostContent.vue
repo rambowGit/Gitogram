@@ -1,11 +1,11 @@
 <template>
-  <div class="post-content__container">
-    <div class="post-content__about">
-      <p class="post-content__name">
+  <div class="post__content-container">
+    <div class="post__content-about">
+      <p class="post__content-name">
         {{ post.name }}
       </p>
-      <p ref="postText" class="post-content__text">
-        {{ post.text }}
+      <p ref="postText" class="post__content-text">
+        {{ post.description }}
       </p>
     </div>
 
@@ -38,7 +38,7 @@ export default {
 };
 </script>
 <style scoped>
-.post-content__container {
+.post__content-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,13 +50,13 @@ export default {
   box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.07);
   border-radius: 10px;
 }
-.post-content__about {
+.post__content-about {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 20px;
 }
-.post-content__name {
+.post__content-name {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
@@ -65,12 +65,13 @@ export default {
   color: #292929;
   margin-bottom: 15px;
 }
-.post-content__text::first-word {
+.post__content-text {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 700;
+  /* font-weight: 700; */
   font-size: 14px;
   line-height: 160%;
   color: #404040;
+	text-align: start;
 }
 </style>

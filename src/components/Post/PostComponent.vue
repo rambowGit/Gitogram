@@ -1,17 +1,18 @@
 //отображение user issue posts
 <template>
-  <div class="post__item" v-for="post in posts" :key="post.id">
+  <div class="post__item" v-for="post in items" :key="post.id">
     <div class="post__header">
       <post-header :post="post" />
     </div>
     <div class="post__footer">
-      <post-footer :post="post" />
+      <post-footer :repo="post" />
     </div>
   </div>
 </template>
 <script>
 import PostHeader from "./PostHeader.vue";
 import PostFooter from "./PostFooter.vue";
+import  {getPopularRepos} from "../../services/GitHub.service";
 
 export default {
 	name: "post-component",
@@ -21,6 +22,7 @@ export default {
 	},
 	data() {
 		return {
+			items: [],
 			posts: [
 				{
 					id: 1,
@@ -78,6 +80,15 @@ export default {
 			],
 		};
 	},
+	async created(){
+		try {
+			const { data } = await getPopularRepos();
+			this.items = data.items;
+			console.log("items: ", this.items);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 };
 </script>
 <style scoped>

@@ -3,18 +3,18 @@
 */
 <template>
   <button
-    class="avatar__container"
-    :class="isProfile ? 'profile-container' : ''"
+    class="avatar"
+    :class="isProfile ? 'profile-container' : 'avatar-container'"
     @click="onPress"
   >
     <div 
 		:class="isProfile ? 'profile__img' : 'avatar__img'"
-		:style="{width: avatarWidth + 'px'}"
+		:style="{width: avatarWidth + 'px', height: avatarWidth + 'px'}"
 		>
       <img :src="userStory.avatar_url" />
-    </div>
-    <div v-if="!isProfile" class="avatar__name">{{ username }}</div>
+    </div>    
   </button>
+	<div v-if="!isProfile" class="avatar__name">{{ username }}</div>
 </template>
 <script>
 export default {
@@ -46,12 +46,12 @@ export default {
 		},
 	},
 	mounted() {
-		console.log("userStory ", this.userStory);
+		// console.log("userStory ", this.userStory);
 	}
 };
 </script>
 <style scoped>
-.avatar__container {
+.avatar {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,26 +68,44 @@ export default {
 .profile-container {
   margin-right: 0;
 }
-
-.avatar__img {
-  border: 2px solid #a6328d;
+.avatar-container {
+	border: 2px solid #a6328d;
   border-radius: 50%;
   padding: 5px;
-  width: 80px;
-  height: 80px;
+	margin-bottom: 5px;
+}
+
+.avatar__img {
+	overflow: hidden;
+	position: relative;
+}
+.profile__img {
+	overflow: hidden;
+	position: relative;
 }
 img {
-  width: 100%;
+  /* width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; */
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .profile__img {
+	overflow: hidden;
+	position: relative;
   width: 37px;
 }
 
 .avatar__name {
   font-size: 12px;
+	max-width: 100px;
+	overflow: hidden;
 }
 
 /* iPad-mini */
