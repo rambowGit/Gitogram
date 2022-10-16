@@ -1,20 +1,16 @@
 <template>
-	<div class="slider-wrapper">
-		<slide-component/>
+	<div>
+		<slider-component/>
 	</div>
 </template>
 <script>
-import SlideComponent from "../components/Slider/SlideComponent.vue";
+import SliderComponent from "../components/Slider/SliderComponent.vue";
 export default {
 	name: "slider-page",
-	components: { SlideComponent }
+	components: { SliderComponent }
 };
 </script>
 <style scoped>
-	.slider-wrapper {
-		background: #292929;
-		width: 100%;
-		min-height: 100%;
-	}
+	
 	
 </style>

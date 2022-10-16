@@ -7,6 +7,12 @@
 
 export default {
 	name: "progress-bar",
+	props: {
+		activated: {
+			type: Boolean,
+			required: true
+		}
+	},
 	data() {
 		return {
 			active: false,
@@ -22,7 +28,7 @@ export default {
 		// TODO: избавиться от setTimeout
 		this.$nextTick(() => {
 			setTimeout(() =>{
-				this.active = true;
+				this.active = this.activated;
 			}, 0);
 		});
 

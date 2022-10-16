@@ -3,7 +3,7 @@
 	<nav>
     <ul class="menu__list">
       <li class="menu__item">
-        <icon-component name="HomeIcon" size="24px" />
+        <icon-component name="HomeIcon"/>
       </li>
       <!-- текущий пользователь передается в пропсы компонента avatar-component -->
       <li class="menu__item">
@@ -14,7 +14,7 @@
         />
       </li>
       <li class="menu__item">
-        <icon-component name="LogoutIcon" size="25px" />
+        <icon-component name="LogoutIcon"/>
       </li>
     </ul>
   </nav>

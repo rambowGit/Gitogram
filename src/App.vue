@@ -1,19 +1,18 @@
 <template>
   <div class="main__wrapper">
-    <feed-page />
-		<slider-page />
-  </div>
+		<router-view />
+	</div>
 </template>
 
 <script>
-import FeedPage from "./pages/FeedPage.vue";
-import SliderPage from "./pages/SliderPage.vue";
+// import FeedPage from "./pages/FeedPage.vue";
+// import SliderPage from "./pages/SliderPage.vue";
 
 export default {
-	components: {
-		FeedPage,
-		SliderPage
-	},
+	// components: {
+	// 	FeedPage,
+	// 	SliderPage
+	// },
 	data() {
 		return {
 			window: {

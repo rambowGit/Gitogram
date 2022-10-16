@@ -1,12 +1,13 @@
 /* Компонент содержит список пользователей. Отображает их в галерее header */
 <template lang="">
   <div class="stories__wrapper">
+		<pre @click="getRepos()">itemzz: {{$store.state.repo}}</pre>
     <div class="story_item" v-for="repo in items" :key="repo.id">
       <!-- каждого из пользователей передайм в пропсы компонента avatar-component -->
       <avatar-component
         :userStory="repo.owner"
 				:username="repo.owner.login"
-        @onPressUserStory="userStoryPressed(story.id)"
+        @onPressUserStory="userStoryPressed()"
       />
     </div>
   </div>
@@ -14,33 +15,37 @@
 
 <script>
 import AvatarComponent from "./AvatarComponent.vue";
-import  {getPopularRepos} from "../../services/GitHub.service";
+// import  {getPopularRepos} from "../../services/GitHub.service";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
 	name: "stories-component",
 	components: { AvatarComponent },
-	data() {
-		return {
-			items: [],
-		};
+
+	computed: {
+		...mapState({
+			items: state => state.repo.items
+		}),
+		// ...mapGetters({
+		// 	isFemale: "user/getIfUserIsFemale"
+		// })
 	},
 	methods: {
-		getUsers() {
-			console.log("users: ", this.userList);
+		...mapActions({
+			getPopularRepos: "getPopularRepos"
+		}),
+		userStoryPressed() {
+			this.$router.push("/slider");
 		},
-		userStoryPressed($e) {
-			console.log("user story is pressed: ", $e);
-		},
+		getRepos(){
+			this.getPopularRepos();
+			console.log("$store.state.repo.items ", this.$store.state.repo.items);
+		}
 	},
 
-	async created(){
-		try {
-			const { data } = await getPopularRepos();
-			this.items = data.items;
-			// console.log("items: ", this.items);
-		} catch (error) {
-			console.log(error);
-		}
+	created() {
+		this.getPopularRepos();
+		// console.log(this.items);
 	}
 };
 </script>

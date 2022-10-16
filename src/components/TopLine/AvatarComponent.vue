@@ -73,6 +73,11 @@ export default {
   border-radius: 50%;
   padding: 5px;
 	margin-bottom: 5px;
+  transition: 0.3s;
+}
+
+.avatar-container:hover {
+	border-color: #fafafa;
 }
 
 .avatar__img {
