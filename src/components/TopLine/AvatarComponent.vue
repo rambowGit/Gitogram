@@ -14,7 +14,7 @@
       <img :src="userStory.avatar_url" />
     </div>    
   </button>
-	<div v-if="!isProfile" class="avatar__name">{{ username }}</div>
+	<div v-if="!isProfile" class="avatar__name">{{ repoName }}</div>
 </template>
 <script>
 export default {
@@ -30,7 +30,7 @@ export default {
 			type: Object,
 			required: true,
 		},
-		username: {
+		repoName: {
 			type: String,
 			required: false,
 		},

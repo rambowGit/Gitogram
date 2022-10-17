@@ -1,7 +1,10 @@
 <template>
 	<div :class="[isActive ? 'slide-wrapper' : 'wrapper-inactive']">
 		<!-- left arrow -->
-	<div class="arrow-left" v-if="isActive">
+	<div class="arrow-left" 
+		v-if="isActive && isPrev"
+		@click="getPrevSlide()"
+		>
 		<div class="arrow">
 			<icon-component name="ArrowLeft" />
 		</div>
@@ -15,7 +18,7 @@
 			<div class="avatar-container">
 				<div class="avatar-img">
 				<avatar-component 
-				:userStory="repo"
+				:userStory="repo.owner"
 				:isProfile=true
 				:avatarWidth="32"
 			/>
@@ -28,26 +31,14 @@
 		</div>
 	
 		<div :class="[isActive ? 'slide-content' : 'slide-content--inactive']">
-			<div class="slide-img">
+			<!-- <div class="slide-img">
 				<img src="../../assets/img/slider/slide_main_img.png" alt="main image"/>
-			</div>
-			<div class="slide-text">
-				<p>
-					<strong>The easiest</strong> way to get .NET 6 Preview 4 is to install the maui-check dotnet tool from 
-					CLI and follow the instructions.
-				</p>
-				<p>
-				For running on Mac you'll currently use your favorite text editor and terminal to edit and run apps. 
-				We expect Visual Studio for Mac .NET 6 support to begin arriving mid-year.
-				</p>
-				<p>
-					In Preview 4 we enable push/pop navigation with NavigationPage. We added a concrete implementation of IWindow, 
-					and completed porting ContentPage from Xamarin.Forms
-				</p>
-				<p>
-					For running on Mac you'll currently use your favorite text editor and terminal to edit and run apps. 
-					We expect Visual Studio for Mac .NET 6 support to begin arriving mid-year.
-				</p>
+			</div> -->
+			<div v-if="readme" class="slide-text" v-html="readme"></div>
+			<div v-else-if="isNext">
+				<div class="skeleton-container">
+					<skeleton-component :quantity="2" />
+				</div>
 			</div>
 		</div>		
 		<div class="slide-footer">
@@ -60,7 +51,10 @@
 		</div>	
 	</div>
 	<!-- right arrow -->
-	<div class="arrow-right" v-if="isActive">
+	<div class="arrow-right"
+		v-if="isActive && isNext"
+		@click="getNextSlide()"
+		>
 		<div class="arrow">
 			<icon-component name="ArrowRight" />
 		</div>
@@ -72,13 +66,17 @@ import ProgressBar from "./ProgressBar.vue";
 import ButtonComponent from "./ButtonComponent.vue";
 import AvatarComponent from "../TopLine/AvatarComponent.vue";
 import IconComponent from "../../icons/IconComponent.vue";
+import SkeletonComponent from "../Slider/SkeletonComponent.vue";
+import { mapState, mapActions } from "vuex";
+
 export default {
 	name: "slide-component",
 	components: {
 		ProgressBar,
 		ButtonComponent,
 		AvatarComponent,
-		IconComponent
+		IconComponent,
+		SkeletonComponent
 	},
 	props: {
 		isActive: {
@@ -90,24 +88,50 @@ export default {
 			require: true,
 			validator(value) {
 				return ["big", "middle", "small"].includes(value);
-			},
-		}	
-	},
-	data() {
-		return {
-			repo: {
-				id: 1,
-				name: "Andrew",
-				avatar_url: require("../../assets/img/avatars/ProfilePic_Andrew.png"),
-			},
-		
-		};
-	},
-	watch: {
-		btnSize(val, oldVal) {
-			console.log("slide component recieve", val, oldVal);
+			}
+		},
+		repo: {
+			type: Object,
+			required: false
+		},
+		readme: {
+			type: String,
+			required: false
 		}
-	}
+	},
+	computed: {
+		...mapState({
+			items: state => state.repoModule.repo.items
+		}),
+		routeParam() {
+			return this.$route.params.id;
+		},
+		isPrev() {
+			if (this.routeParam === "0")
+				return false;	
+			return true;
+		},
+		isNext() {
+			if (this.routeParam >= (this.items.length -1))
+				return false;	
+			return true;
+		},
+	},
+	emits: ["onMoveLeft", "onMoveRight"],
+	methods: {
+		getNextSlide() {
+			this.$emit("onMoveRight");		
+			let nextSlideId =  Number(this.routeParam) + 1;
+			this.$router.push("/slider/"+ nextSlideId); 
+		},
+
+		getPrevSlide() {
+			this.$emit("onMoveLeft");		
+			let prevSlideId =  Number(this.routeParam) - 1;
+			this.$router.push("/slider/"+ prevSlideId); 
+			
+		}
+	},
 };
 </script>
 <style scoped>
@@ -174,7 +198,7 @@ export default {
 }
 .slide-content {
 	background: #fafafa;
-	/* flex: 1 0 auto; */
+	flex: 1 0 auto;
 	max-height: 500px;
 	overflow-y: scroll;
 }
@@ -191,6 +215,11 @@ export default {
 	line-height: 160%;
 	color: #404040;
 	text-align: start;
+
+	margin: 0;
+	padding: 20px 20px 0 20px;
+	text-align: start;
+	overflow-x: hidden;
 }
 p {
 	margin: 0;
@@ -231,5 +260,9 @@ p {
 .arrow {
 	margin: 9px auto;
 	width: 18px;
+	cursor: pointer;
 }
+
+
+
 </style>

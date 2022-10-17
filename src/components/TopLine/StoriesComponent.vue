@@ -1,13 +1,12 @@
 /* Компонент содержит список пользователей. Отображает их в галерее header */
 <template lang="">
   <div class="stories__wrapper">
-		<pre @click="getRepos()">itemzz: {{$store.state.repo}}</pre>
-    <div class="story_item" v-for="repo in items" :key="repo.id">
+    <div class="story_item" v-for="(repo, index) in items" :key="repo.id">
       <!-- каждого из пользователей передайм в пропсы компонента avatar-component -->
       <avatar-component
         :userStory="repo.owner"
-				:username="repo.owner.login"
-        @onPressUserStory="userStoryPressed()"
+				:repoName="repo.name"
+        @onPressUserStory="userStoryPressed(index)"
       />
     </div>
   </div>
@@ -15,8 +14,7 @@
 
 <script>
 import AvatarComponent from "./AvatarComponent.vue";
-// import  {getPopularRepos} from "../../services/GitHub.service";
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
 	name: "stories-component",
@@ -24,38 +22,29 @@ export default {
 
 	computed: {
 		...mapState({
-			items: state => state.repo.items
-		}),
-		// ...mapGetters({
-		// 	isFemale: "user/getIfUserIsFemale"
-		// })
+			items: state => state.repoModule.repo.items
+		})
+			
 	},
 	methods: {
 		...mapActions({
-			getPopularRepos: "getPopularRepos"
+			getPopularRepos: "repoModule/getPopularRepos"
 		}),
-		userStoryPressed() {
-			this.$router.push("/slider");
+		userStoryPressed(idx) {
+			this.$router.push("/slider/"+idx);
 		},
-		getRepos(){
-			this.getPopularRepos();
-			console.log("$store.state.repo.items ", this.$store.state.repo.items);
-		}
 	},
 
 	created() {
 		this.getPopularRepos();
-		// console.log(this.items);
 	}
 };
 </script>
 <style scoped>
 .stories__wrapper {
   display: flex;
-  /* margin-left: 115px; */
 }
 .story_item {
-  /* margin-right: 43px; */
 }
 .storie_item:last-child {
   margin-right: 0;

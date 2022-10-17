@@ -1,7 +1,10 @@
 import axios from "axios";
 
 
-export const repo = {
+export default{
+
+	namespaced: true,
+
 	state: {
 		repo: {
 			items: null,
@@ -9,9 +12,11 @@ export const repo = {
 			error: ""
 		}
 	},
+	// получение из массива нужного репозитория по его индексу в массиве. Используется в SliderComponent.vue
 	getters: {
-		getItems (state) {
-			return state.repo.items;
+		getRepoById (state) {
+			if (state.repo.items)
+				return state.repo.items[0];
 		}
 	},
 	mutations: {
@@ -26,6 +31,10 @@ export const repo = {
 		}
 	},
 	actions: {
+		/**
+		 * 10 популярных JS репозиториев за последние 7 дней
+		 * @param {*} param0 
+		 */
 		async getPopularRepos({commit}) {
 			commit("SET_REPO_LOADING", true);
 			try {
@@ -40,7 +49,7 @@ export const repo = {
 					params: params
 				});
 				const data = await response.data;
-				// console.log("repos: ", data.items);
+				console.log("repos: ", data.items);
 
 				commit("SET_REPO_ITEMS", data.items);
 			} catch (error) {
@@ -48,9 +57,33 @@ export const repo = {
 			} finally {
 				commit("SET_REPO_LOADING", false);
 			}
+		},
+
+
+		/**
+		 * получение Readme.md
+		 * @param {*} daysMinus 
+		 * @returns 
+		 */
+		async getReadme(ctx, {id, owner , repo}) {
+
+			const contentHeader = "application/vnd.github.v3.html+json";
+			try {
+				const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/readme` , {
+					headers: {
+						accept: contentHeader
+					}
+				});
+				return response.data;
+			} catch(e) {
+				console.log(e);
+			}
+			
 		}
+
 	}
 };
+
 
 
 // helper date
