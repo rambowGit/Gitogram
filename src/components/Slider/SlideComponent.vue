@@ -67,7 +67,7 @@ import ButtonComponent from "./ButtonComponent.vue";
 import AvatarComponent from "../TopLine/AvatarComponent.vue";
 import IconComponent from "../../icons/IconComponent.vue";
 import SkeletonComponent from "../Slider/SkeletonComponent.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 
 export default {
 	name: "slide-component",

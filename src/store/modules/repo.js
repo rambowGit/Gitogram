@@ -66,7 +66,7 @@ export default{
 		 * @returns 
 		 */
 		async getReadme(ctx, {id, owner , repo}) {
-
+			id;
 			const contentHeader = "application/vnd.github.v3.html+json";
 			try {
 				const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/readme` , {
