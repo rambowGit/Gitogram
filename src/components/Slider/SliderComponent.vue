@@ -54,6 +54,9 @@ export default {
 		routeParam() {
 			return this.$route.params.id;
 		},
+		routeParamNext() {
+			return Number(this.routeParam) + 1;
+		},
 		...mapState({
 			items: state => state.repoModule.repo.items
 		}),
@@ -65,19 +68,25 @@ export default {
 
 		async getReadmeForActiveSlide() {
 			const {id, owner, name} = this.items[this.routeParam];
+			// console.log(this.items[this.routeParam])
+			this.readmeData = await this.getReadme({id, owner: owner.login, repo: name});
+		},
+		async getReadmeForNextSlide() {
+			const {id, owner, name} = this.items[this.routeParamNext];
+			// console.log(this.items[this.routeParam])
 			this.readmeData = await this.getReadme({id, owner: owner.login, repo: name});
 		},
 
-		transformLeft() {
+		async transformLeft() {
 			console.log("cacthed event onMoveLeft");
-			this.delta = this.delta - 300;
+			this.delta = this.delta + 400;
 			this.move = `translateX(${this.delta}px)`;
-			
 		},
-		transformRight(){
+		async transformRight(){
 			console.log("cacthed event onMoveRight");
-			this.delta = this.delta + 300;
+			this.delta = this.delta - 400;
 			this.move = `translateX(${this.delta}px)`;
+			await this.getReadmeForNextSlide();
 		}
 	},
 

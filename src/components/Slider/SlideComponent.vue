@@ -13,7 +13,10 @@
 		<!-- slide box -->
 		<div class="slide-header">
 			<div class="p-bar">
-				<progress-bar :activated="isActive" />
+				<progress-bar 
+					:activated="isActive" 
+					@onFinish="getNextSlide()"
+					/>
 			</div>
 			<div class="avatar-container">
 				<div class="avatar-img">

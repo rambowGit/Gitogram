@@ -55,7 +55,7 @@ export default {
   background: #31AE54;
   border-radius: 1px;
 	width: 0;
-	transition: width 2s;
+	transition: width 5s;
 }
 .active {
   width: 100%;
