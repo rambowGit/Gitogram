@@ -9,8 +9,9 @@
 			<icon-component name="ArrowLeft" />
 		</div>
 	</div>
+
+	<!-- slide box -->
 	<div :class="[isActive ? 'active' : 'inactive', 'slide-container']">
-		<!-- slide box -->
 		<div class="slide-header">
 			<div class="p-bar">
 				<progress-bar 
@@ -34,11 +35,13 @@
 		</div>
 	
 		<div :class="[isActive ? 'slide-content' : 'slide-content--inactive']">
-			<!-- <div class="slide-img">
-				<img src="../../assets/img/slider/slide_main_img.png" alt="main image"/>
-			</div> -->
-			<div v-if="readme" class="slide-text" v-html="readme"></div>
-			<div v-else-if="isNext">
+			<pre>
+					{{$store.state.readmeModule.readme.items[0]}}
+				</pre>
+			<div v-if="isActive" class="slide-text" v-html="testHTml">
+				
+			</div>
+			<div v-else>
 				<div class="skeleton-container">
 					<skeleton-component :quantity="2" />
 				</div>
@@ -98,13 +101,13 @@ export default {
 			required: false
 		},
 		readme: {
-			type: String,
-			required: false
+			type: Object
 		}
 	},
 	computed: {
 		...mapState({
-			items: state => state.repoModule.repo.items
+			items: state => state.repoModule.repo.items,
+			readmes: state => state.readmeModule.readme.items
 		}),
 		routeParam() {
 			return this.$route.params.id;
@@ -119,22 +122,29 @@ export default {
 				return false;	
 			return true;
 		},
+		testHTml() {
+			return "<h1> test </h1>";
+		}
 	},
 	emits: ["onMoveLeft", "onMoveRight"],
 	methods: {
-		getNextSlide() {
-			this.$emit("onMoveRight");		
+		getNextSlide() {	
 			let nextSlideId =  Number(this.routeParam) + 1;
+			this.$emit("onMoveRight", nextSlideId);	
 			this.$router.push("/slider/"+ nextSlideId); 
 		},
 
 		getPrevSlide() {
-			this.$emit("onMoveLeft");		
 			let prevSlideId =  Number(this.routeParam) - 1;
+			this.$emit("onMoveLeft", prevSlideId);		
 			this.$router.push("/slider/"+ prevSlideId); 
 			
-		}
+		},
 	},
+	created(){
+	// 	console.log("prop readme: ", this.readme?.repoId);
+	// 	console.log("prop readme keys: ", Object.keys(this.readme));
+	}
 };
 </script>
 <style scoped>

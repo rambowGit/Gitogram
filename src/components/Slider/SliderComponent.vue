@@ -7,24 +7,25 @@
 			class = "slider"
 			:style = "{transform: move}"
 		>
-			<div class="slider-container"  v-for="(repo, index) in items" :key="repo.id">
+			<div class="slider-container"  v-for="(repo, index) in repos" :key="repo.id">
 				<div class= "active-slide" v-if="index == routeParam ? true : false">
+					<!-- <pre>prop -> {{readmes[0]}}</pre> -->
 					<slide-component 
-						isActive
+						:isActive=true
 						btnSize="big"
-						:repo="items[this.routeParam]"
-						:readme="readmeData"
+						:repo="activeSlideRepo"
+						:readme="readmes[routeParam]"
 						@onMoveLeft="transformLeft()"
 						@onMoveRight="transformRight()"
 					/>
 				</div>
-				<div v-else>
+				<!-- <div v-else>
 					<slide-component 
 						:isActive="false"
 						btnSize="middle"
 						:repo="repo"
 					/>
-				</div>
+				</div> -->
 				
 			</div>
 		</div>		
@@ -34,7 +35,7 @@
 
 import SlideComponent from "../Slider/SlideComponent.vue";
 import SliderHeader from "./SliderHeader.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 
 export default {
@@ -45,9 +46,8 @@ export default {
 	},
 	data() {
 		return {
-			readmeData: "",
-			move: "",
-			delta: 0
+			readmeData: {},
+			shiftVAlue: 350
 		};
 	},
 	computed: {
@@ -57,43 +57,61 @@ export default {
 		routeParamNext() {
 			return Number(this.routeParam) + 1;
 		},
+		routeParamPrev() {
+			return Number(this.routeParam) - 1;
+		},
+		delta(){
+			return Number(this.routeParam) * this.shiftVAlue;
+		},
+		move() {
+			return `translateX(-${this.delta}px)`;
+		} ,
+		activeSlideRepo() {
+			return this.repos[this.routeParam];
+		},
 		...mapState({
-			items: state => state.repoModule.repo.items
-		}),
+			repos: state => state.repoModule.repo.items,
+			readmes: state => state.readmeModule.readme.items
+		}),		
 	},
 	methods: {
-		...mapActions({
-			getReadme: "repoModule/getReadme"
+		...mapGetters({
+			getReadmeById: "readmeModule/getReadmeById"
 		}),
-
+		...mapActions({
+			getReadme: "readmeModule/getReadme"
+		}),
+		// readme для активного слайда
 		async getReadmeForActiveSlide() {
-			const {id, owner, name} = this.items[this.routeParam];
-			// console.log(this.items[this.routeParam])
-			this.readmeData = await this.getReadme({id, owner: owner.login, repo: name});
-		},
-		async getReadmeForNextSlide() {
-			const {id, owner, name} = this.items[this.routeParamNext];
-			// console.log(this.items[this.routeParam])
-			this.readmeData = await this.getReadme({id, owner: owner.login, repo: name});
+			const {id, owner, name} = this.repos[this.routeParam];
+			// получаем и записываем в store
+			await this.getReadme({repoId: id, owner: owner.login, repo: name});
 		},
 
-		async transformLeft() {
-			console.log("cacthed event onMoveLeft");
-			this.delta = this.delta + 400;
-			this.move = `translateX(${this.delta}px)`;
+		// readme для след. слайда
+		async getReadmeForNextSlide(routeParam) {
+			const {id, owner, name} = this.repos[routeParam];
+			// получаем и записываем в store
+			this.readmeData = await this.getReadme({repoId: id, owner: owner.login, repo: name});
 		},
-		async transformRight(){
-			console.log("cacthed event onMoveRight");
-			this.delta = this.delta - 400;
+		// листаем слайды влево
+		async transformLeft() {
+			this.delta = this.delta + this.shiftValue;
 			this.move = `translateX(${this.delta}px)`;
-			await this.getReadmeForNextSlide();
+			await this.getReadmeForNextSlide(this.routeParamPrev);
+		},
+		// листаем слайды вправо
+		async transformRight(){
+			this.delta = this.delta - this.shiftVAlue;
+			this.move = `translateX(${this.delta}px)`;
+			await this.getReadmeForNextSlide(this.routeParamNext);
 		}
 	},
-
 	async created() {
-		// console.log("active slide is: ", this.items[this.routeParam]);
 		await this.getReadmeForActiveSlide();
+		// console.log (this.readmes[0]);
 	},
+	
 };
 </script>
 <style scoped>

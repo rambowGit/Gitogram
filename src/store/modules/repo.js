@@ -12,13 +12,7 @@ export default{
 			error: ""
 		}
 	},
-	// получение из массива нужного репозитория по его индексу в массиве. Используется в SliderComponent.vue
-	getters: {
-		getRepoById (state) {
-			if (state.repo.items)
-				return state.repo.items[0];
-		}
-	},
+
 	mutations: {
 		SET_REPO_ITEMS(state, payload) {
 			state.repo.items = payload;
@@ -65,8 +59,8 @@ export default{
 		 * @param {*} daysMinus 
 		 * @returns 
 		 */
-		async getReadme(ctx, {id, owner , repo}) {
-			id;
+		async getReadme(ctx, {repoId, owner , repo}) {
+			repoId
 			const contentHeader = "application/vnd.github.v3.html+json";
 			try {
 				const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/readme` , {
