@@ -35,12 +35,7 @@
 		</div>
 	
 		<div :class="[isActive ? 'slide-content' : 'slide-content--inactive']">
-			<pre>
-					{{$store.state.readmeModule.readme.items[0]}}
-				</pre>
-			<div v-if="isActive" class="slide-text" v-html="testHTml">
-				
-			</div>
+			<div v-if="repo.readme" class="slide-text" v-html="repo.readme"></div>
 			<div v-else>
 				<div class="skeleton-container">
 					<skeleton-component :quantity="2" />
@@ -100,14 +95,10 @@ export default {
 			type: Object,
 			required: false
 		},
-		readme: {
-			type: Object
-		}
 	},
 	computed: {
 		...mapState({
 			items: state => state.repoModule.repo.items,
-			readmes: state => state.readmeModule.readme.items
 		}),
 		routeParam() {
 			return this.$route.params.id;
@@ -142,8 +133,7 @@ export default {
 		},
 	},
 	created(){
-	// 	console.log("prop readme: ", this.readme?.repoId);
-	// 	console.log("prop readme keys: ", Object.keys(this.readme));
+		
 	}
 };
 </script>

@@ -38,7 +38,8 @@ export default{
 		 * @param {*} daysMinus 
 		 * @returns 
 		 */
-		async getReadme(state, {repoId, owner , repo}) {
+		async getReadme(ctx, {id, owner , repo}) {
+			
 			const contentHeader = "application/vnd.github.v3.html+json";
 			try {
 				const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/readme` , {
@@ -46,19 +47,15 @@ export default{
 						accept: contentHeader
 					}
 				});
-				state.commit("SET_README_ITEMS", {
-					repoId,
-					readmeHtml: response.data
-				});
-
-				// console.log("getter ", state.getters.getReadmeById(552569233));
+				
+				ctx.commit("repoModule/SET_README", {id, content: response.data}, { root: true });
 
 				return response.data;
 			} catch(e) {
 				console.log(e);
-				state.commit("SET_README_ERROR", "Не удалось получить readme");
+				ctx.commit("SET_README_ERROR", "Не удалось получить readme");
 			} finally {
-				state.commit("SET_README_LOADING", false);
+				ctx.commit("SET_README_LOADING", false);
 			}
 			
 		}

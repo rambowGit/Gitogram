@@ -12,8 +12,20 @@ export default{
 			error: ""
 		}
 	},
-
+	getters: {
+		getRepoById: (state) => id => {
+			state.repo.items.find((item) => item.id == id);
+		} 
+	},
 	mutations: {
+		SET_README(state, payload) {
+			state.repo.items = state.repo.items.map( repo => {
+				if (payload.id == repo.id) {
+					repo.readme = payload.content;
+				}
+				return repo;
+			});
+		},
 		SET_REPO_ITEMS(state, payload) {
 			state.repo.items = payload;
 		},
@@ -43,8 +55,6 @@ export default{
 					params: params
 				});
 				const data = await response.data;
-				console.log("repos: ", data.items);
-
 				commit("SET_REPO_ITEMS", data.items);
 			} catch (error) {
 				commit("SET_REPO_ERROR", "Не удалось получить пользователя");
@@ -53,27 +63,6 @@ export default{
 			}
 		},
 
-
-		/**
-		 * получение Readme.md
-		 * @param {*} daysMinus 
-		 * @returns 
-		 */
-		async getReadme(ctx, {repoId, owner , repo}) {
-			repoId
-			const contentHeader = "application/vnd.github.v3.html+json";
-			try {
-				const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/readme` , {
-					headers: {
-						accept: contentHeader
-					}
-				});
-				return response.data;
-			} catch(e) {
-				console.log(e);
-			}
-			
-		}
 
 	}
 };

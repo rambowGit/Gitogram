@@ -14,18 +14,17 @@
 						:isActive=true
 						btnSize="big"
 						:repo="activeSlideRepo"
-						:readme="readmes[routeParam]"
 						@onMoveLeft="transformLeft()"
 						@onMoveRight="transformRight()"
 					/>
 				</div>
-				<!-- <div v-else>
+				<div v-else>
 					<slide-component 
 						:isActive="false"
 						btnSize="middle"
 						:repo="repo"
 					/>
-				</div> -->
+				</div>
 				
 			</div>
 		</div>		
@@ -71,7 +70,6 @@ export default {
 		},
 		...mapState({
 			repos: state => state.repoModule.repo.items,
-			readmes: state => state.readmeModule.readme.items
 		}),		
 	},
 	methods: {
@@ -85,14 +83,14 @@ export default {
 		async getReadmeForActiveSlide() {
 			const {id, owner, name} = this.repos[this.routeParam];
 			// получаем и записываем в store
-			await this.getReadme({repoId: id, owner: owner.login, repo: name});
+			await this.getReadme({id, owner: owner.login, repo: name});
 		},
 
 		// readme для след. слайда
 		async getReadmeForNextSlide(routeParam) {
 			const {id, owner, name} = this.repos[routeParam];
 			// получаем и записываем в store
-			this.readmeData = await this.getReadme({repoId: id, owner: owner.login, repo: name});
+			this.readmeData = await this.getReadme({id, owner: owner.login, repo: name});
 		},
 		// листаем слайды влево
 		async transformLeft() {
@@ -109,7 +107,7 @@ export default {
 	},
 	async created() {
 		await this.getReadmeForActiveSlide();
-		// console.log (this.readmes[0]);
+		console.log (typeof this.readmes[0]);
 	},
 	
 };
