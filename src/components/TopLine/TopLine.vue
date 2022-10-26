@@ -27,6 +27,11 @@ export default {
 		HeaderLogo,
 		HeaderMenu,
 	},
+	props: {
+		user: {
+			type: Object
+		}
+	}
 };
 </script>
 <style scoped></style>

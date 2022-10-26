@@ -11,13 +11,27 @@
 <script>
 import TopLine from "../components/TopLine/TopLine.vue";
 import PostComponent from "../components/Post/PostComponent.vue";
-
+import { mapState, mapActions } from "vuex";
 export default {
 	name: "feed-page",
 	components: {
-		TopLine,
+		TopLine,	
 		PostComponent,
 	},
+	computed: {
+		...mapState({
+			authUser: state => state.userModule.user,
+		}),		
+	},
+	methods: {
+		...mapActions({
+			getUser: "userModule/getUser"
+		}),
+	},
+	async created() {
+		// получаем залогиненного пользователя
+		await this.getUser();
+	}
 };
 </script>
 <style scoped>

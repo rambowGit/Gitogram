@@ -7,4 +7,5 @@ export { default as LogoIcon } from "./LogoIcon.vue";
 export { default as CloseIcon } from "./CloseIcon.vue";
 export { default as ArrowLeft } from "./ArrowLeft.vue";
 export { default as ArrowRight } from "./ArrowRight.vue";
+export { default as SpinnerIcon } from "./SpinnerIcon.vue";
 

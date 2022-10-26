@@ -1,4 +1,4 @@
-import axios from "axios";
+import { getReadmeForRepo } from "../../api/GitHub.service";
 
 
 export default{
@@ -40,17 +40,13 @@ export default{
 		 */
 		async getReadme(ctx, {id, owner , repo}) {
 			
-			const contentHeader = "application/vnd.github.v3.html+json";
-			try {
-				const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/readme` , {
-					headers: {
-						accept: contentHeader
-					}
-				});
-				
-				ctx.commit("repoModule/SET_README", {id, content: response.data}, { root: true });
+			try {		
+				const readme = await getReadmeForRepo(owner, repo);
+				// вызываем мутацию в соседнем модуле, записывая Readme в объект repo соседнего стора
+				ctx.commit("repoModule/SET_README", {id, content: readme.data}, { root: true });
+				// ctx.commit("starsModule/SET_README", {id, content: readme.data}, { root: true });
 
-				return response.data;
+				return readme.data;
 			} catch(e) {
 				console.log(e);
 				ctx.commit("SET_README_ERROR", "Не удалось получить readme");

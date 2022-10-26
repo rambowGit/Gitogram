@@ -1,4 +1,8 @@
-import axios from "axios";
+import {
+	setStarToRepo, 
+	unstarRepo,
+	getPopularRepos as getPopRepos,
+} from "../../api/GitHub.service"; 
 
 
 export default{
@@ -14,8 +18,12 @@ export default{
 	},
 	getters: {
 		getRepoById: (state) => id => {
-			state.repo.items.find((item) => item.id == id);
-		} 
+			return state.repo.items.find((item) => item.id == id);
+		},
+		
+		getTrendingRepos(state) {
+			return state.repo.items;		 
+		}	 
 	},
 	mutations: {
 		SET_README(state, payload) {
@@ -27,14 +35,40 @@ export default{
 			});
 		},
 		SET_REPO_ITEMS(state, payload) {
-			state.repo.items = payload;
+			state.repo.items = payload.map( item => {
+				item.following = {
+					status: false,
+					loading: false,
+					error: ""					
+				};
+				return item;
+			});
 		},
 		SET_REPO_LOADING(state, payload) {
 			state.repo.loading = payload;
 		},
 		SET_REPO_ERROR(state, payload) {
 			state.repo.error = payload;
-		}
+		},
+		
+		// мутация при клике на кнопку follow
+		SET_FOLLOWING(state, payload) {
+			state.repo.items = state.repo.items.map( repo => {
+				if(payload.id === repo.id) {
+					// заменили (смешали) то, что было на то, что передали - payload
+					repo.following = {
+						...repo.following,
+						...payload.following
+					};
+				}
+				// записываем в новый массив полученный объект с stars
+				return repo;
+			});
+		},
+		
+		
+
+		
 	},
 	actions: {
 		/**
@@ -44,16 +78,7 @@ export default{
 		async getPopularRepos({commit}) {
 			commit("SET_REPO_LOADING", true);
 			try {
-				const weekAgoFormated = getRequiredDate(7);
-				const params = new URLSearchParams;
-				params.append("q", `language:javascript created:>${weekAgoFormated}`);
-				params.append("sort", "stars");
-				params.append("order", "desc");
-				params.append("per_page", "10");
-
-				const response = await axios.get("https://api.github.com/search/repositories" , {
-					params: params
-				});
+				const response = await getPopRepos();
 				const data = await response.data;
 				commit("SET_REPO_ITEMS", data.items);
 			} catch (error) {
@@ -62,17 +87,98 @@ export default{
 				commit("SET_REPO_LOADING", false);
 			}
 		},
+		
+		
+		
+		// поставить лайк репозиторию
+		async setStar(ctx, id) {
+			const { name: repo, owner } = ctx.getters.getRepoById(id);
+			
+			ctx.commit("SET_FOLLOWING", {
+				id,
+				following: {
+					status: false,
+					loading: true,
+					error: "",
+				}
+			});
+			
+			// ставим star
+			try {
+			
+				const resp = await setStarToRepo({owner: owner.login, repo});
+				
+				console.log("star resp: ", resp);
+				
+				ctx.commit("SET_FOLLOWING", {
+					id,
+					following: {
+						status: true,
+						loading: true,
+						error: "",
+					}
+				});
+				
+			} catch (error) {
+				ctx.commit("SET_FOLLOWING", {
+					id,
+					following: {
+						loading: false,
+						error: "Error while starred",
+					}
+				});
+			} finally {
+				ctx.commit("SET_FOLLOWING", {
+					id,
+					following: {
+						loading: false,
+					}
+				});
+			}
+		},	
+		
+		
+		// снять лайк репозиторию
+		async unStar(ctx, id) {
+			const { name: repo, owner } = ctx.getters.getRepoById(id);
+		
+			
+			// снимаем star
+			try {
+			
+				const resp = await unstarRepo({owner: owner.login, repo});
+				
+				console.log("unstar resp: ", resp);
+				
+				ctx.commit("SET_FOLLOWING", {
+					id,
+					following: {
+						status: false,
+						loading: true,
+						error: "",
+					}
+				});
+				
+			} catch (error) {
+				ctx.commit("SET_FOLLOWING", {
+					id,
+					following: {
+						loading: false,
+						error: "Error while starred",
+					}
+				});
+			} finally {
+				ctx.commit("SET_FOLLOWING", {
+					id,
+					following: {
+						loading: false,
+					}
+				});
+			}
+		},	
+		
 
-
+		
 	}
-};
-
-
-
-// helper date
-
-const getRequiredDate = (daysMinus) => {
-	const weekMS = daysMinus * 24 * 60 * 60 * 1000;
-	const weekAgo = new Date(Date.now() - weekMS);
-	return weekAgo.toISOString().split("T")[0];
+	
 };

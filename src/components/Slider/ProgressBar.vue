@@ -29,7 +29,7 @@ export default {
 		this.$nextTick(() => {
 			setTimeout(() =>{
 				this.active = this.activated;
-			}, 0);
+			}, 200);
 		});
 
 		this.$refs.progress.addEventListener("transitionend", this.emitOnFinish);
@@ -55,7 +55,7 @@ export default {
   background: #31AE54;
   border-radius: 1px;
 	width: 0;
-	transition: width 5s;
+	transition: width 50s;
 }
 .active {
   width: 100%;

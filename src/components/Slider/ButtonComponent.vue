@@ -2,12 +2,19 @@
 	<!-- big button -->
   <button
 	v-if="size === 'big'"
-  @mouseover="hovered = true"
-  @mouseleave="hovered = false"
-  :class="[hovered ? 'btn-inactive' : 'btn-active', 'btn']"
+	@click="$emit('onFollowClick')"
+  :class="[loading || theme === 'grey' ? 'btn-inactive' :  'btn-active', 'btn']"
   >
-    <span v-if="!hovered" class="btn-text">
-      <slot></slot>
+    <span class="btn-text">
+      <div v-if="!loading">
+				<slot></slot>
+			</div>
+			<div v-else	
+				class="btn-inactive spinner"		
+			>
+			<icon-component name="SpinnerIcon"/>
+			</div>
+		
     </span>
     <span v-if="hovered" class="btn-text">
       {{hoverText}}
@@ -29,9 +36,15 @@
     </span>        
   </button>
 </template>
+
 <script>
+import IconComponent from "../../icons/IconComponent.vue";
 export default {
 	name: "button-component",
+	components: {
+		IconComponent
+	},
+	emits: ["onFollowClick"],
 	props: {
 		hoverText: {
 			type: String,
@@ -43,6 +56,13 @@ export default {
 			validator(value) {
 				return ["big", "middle", "small"].includes(value);
 			},
+		},
+		theme: {
+			type: String,
+			required: false
+		},
+		loading: {
+			type: Boolean
 		}
 	},
 	data() {
@@ -50,11 +70,6 @@ export default {
 			hovered: false,
 		};
 	},
-	watch: {
-		size(val, oldVal) {
-			console.log("btn component recieve", val, oldVal);
-		}
-	}
 };
 </script>
 <style scoped>
@@ -103,4 +118,30 @@ export default {
   .btn-inactive {
     background: #9E9E9E;
   }
+/* spinner */
+.spinner-container {
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	justify-content:center;
+	align-items: center;
+}
+.spinner {
+	color: #fff;
+	display: inline-block;
+  width: 24px;
+  height: 24px;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 </style>

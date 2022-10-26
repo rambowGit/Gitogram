@@ -13,7 +13,10 @@
 					:avatarWidth=37
         />
       </li>
-      <li class="menu__item">
+      <li 
+				class="menu__item logout"
+				@click="logout"
+				>
         <icon-component name="LogoutIcon"/>
       </li>
     </ul>
@@ -23,7 +26,7 @@
 <script>
 import AvatarComponent from "./AvatarComponent.vue";
 import IconComponent from "../../icons/IconComponent.vue";
-import  {getPopularRepos} from "../../services/GitHub.service";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
 	components: {
@@ -31,23 +34,23 @@ export default {
 		IconComponent,
 	},
 	name: "header-menu",
-	data() {
-		return {
-			repo: {
-				id: 1,
-				name: "Andrew",
-				avatar_url: require("../../assets/img/avatars/ProfilePic_Andrew.png"),
-			},
-		};
+	computed: {
+		...mapGetters({
+			authUser: "userModule/getUserFromState"
+		}),
+		repo() {
+			// auth user profile
+			return {
+				id: this.authUser.id,
+				name: this.authUser.login,
+				avatar_url: this.authUser.avatar_url
+			};
+		}		
 	},
-	async created(){
-		try {
-			const { data } = await getPopularRepos();
-			this.items = data.items;
-			// console.log("items: ", this.items);
-		} catch (error) {
-			console.log(error);
-		}
+	methods: {
+		...mapActions({
+			logout: "userModule/logout"
+		})
 	}
 };
 </script>
@@ -67,6 +70,9 @@ ul {
   margin: 0;
   color: #262626;
   width: 24px;
+}
+.logout {
+	cursor: pointer;
 }
 
 /* iPad-mini */

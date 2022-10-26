@@ -3,7 +3,7 @@
 		<!-- left arrow -->
 	<div class="arrow-left" 
 		v-if="isActive && isPrev"
-		@click="getPrevSlide()"
+		@click="getPrevSlide"
 		>
 		<div class="arrow">
 			<icon-component name="ArrowLeft" />
@@ -11,12 +11,12 @@
 	</div>
 
 	<!-- slide box -->
-	<div :class="[isActive ? 'active' : 'inactive', 'slide-container']">
+	<div :class="[isActive ? 'active' : '', 'slide-container']">
 		<div class="slide-header">
 			<div class="p-bar">
 				<progress-bar 
 					:activated="isActive" 
-					@onFinish="getNextSlide()"
+					@onFinish="getNextSlide"
 					/>
 			</div>
 			<div class="avatar-container">
@@ -34,8 +34,15 @@
 			
 		</div>
 	
-		<div :class="[isActive ? 'slide-content' : 'slide-content--inactive']">
+		<div :class="[isActive ? 'slide-content' : 'slide-content--inactive']">		
 			<div v-if="repo.readme" class="slide-text" v-html="repo.readme"></div>
+			
+			<div v-else-if="isReadmeLoading && !repo.readme" class="spinner-container">
+				<div v-if="isReadmeLoading" class="spinner">
+					<icon-component name="SpinnerIcon"/>
+				</div>	
+			</div>							
+			
 			<div v-else>
 				<div class="skeleton-container">
 					<skeleton-component :quantity="2" />
@@ -43,18 +50,24 @@
 			</div>
 		</div>		
 		<div class="slide-footer">
-			<div class="btn-container">
-				<button-component 
+			<div 
+			class="btn-container"			
+			>
+				<button-component 				
 				hoverText="Unfollow"
-				:size="btnSize"				
-				>Follow</button-component>
+				:size="btnSize"
+				v-on:onFollowClick="onFollowHandler"
+				:loading="repo.following.loading"
+				:theme="repo.following.status ? 'grey' : 'green' "
+				>{{repo.following.status ? "Unfollow" : "Follow"}}
+			</button-component>
 			</div>
 		</div>	
 	</div>
 	<!-- right arrow -->
 	<div class="arrow-right"
 		v-if="isActive && isNext"
-		@click="getNextSlide()"
+		@click="getNextSlide"
 		>
 		<div class="arrow">
 			<icon-component name="ArrowRight" />
@@ -68,18 +81,22 @@ import ButtonComponent from "./ButtonComponent.vue";
 import AvatarComponent from "../TopLine/AvatarComponent.vue";
 import IconComponent from "../../icons/IconComponent.vue";
 import SkeletonComponent from "../Slider/SkeletonComponent.vue";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
 	name: "slide-component",
+	emits: ["onMoveLeft", "onMoveRight", "onFollow"],
 	components: {
 		ProgressBar,
 		ButtonComponent,
 		AvatarComponent,
 		IconComponent,
-		SkeletonComponent
+		SkeletonComponent,
 	},
 	props: {
+		isReadmeLoading: {
+			type: Boolean
+		},
 		isActive: {
 			type: Boolean,
 			require: false
@@ -97,8 +114,9 @@ export default {
 		},
 	},
 	computed: {
-		...mapState({
-			items: state => state.repoModule.repo.items,
+		...mapGetters({
+			// items: "starsModule/getStarredRepos"
+			items: "repoModule/getTrendingRepos"
 		}),
 		routeParam() {
 			return this.$route.params.id;
@@ -116,9 +134,9 @@ export default {
 		testHTml() {
 			return "<h1> test </h1>";
 		}
-	},
-	emits: ["onMoveLeft", "onMoveRight"],
+	},	
 	methods: {
+		
 		getNextSlide() {	
 			let nextSlideId =  Number(this.routeParam) + 1;
 			this.$emit("onMoveRight", nextSlideId);	
@@ -129,12 +147,21 @@ export default {
 			let prevSlideId =  Number(this.routeParam) - 1;
 			this.$emit("onMoveLeft", prevSlideId);		
 			this.$router.push("/slider/"+ prevSlideId); 
-			
 		},
-	},
-	created(){
 		
-	}
+		/*
+		 Передаем эвент выше в SliderComponent:
+		 т.к. не получается прослушать нативный клик на компоненте ButtonComponent, 
+		 приходится генерировать событие onFollow в ButtonComponent, ловить его тут и передавать выше в SliderComponent
+		 */
+		onFollowHandler(){
+			this.$emit("onFollow", this.repo.id, this.repo.following.status );
+
+		}
+		
+		
+	
+	},
 };
 </script>
 <style scoped>
@@ -160,12 +187,18 @@ export default {
 	border-radius: 8px;
 	margin: 0 auto;
 	background-color: #fff;
-}
-.inactive {
+
 	width: 300px;
 	height: 538px;
 	margin: 0 24px;
+	transition: height 1s;
 }
+
+/* .inactive {
+	width: 300px;
+	height: 538px;
+	margin: 0 24px;
+} */
 .active {
 	width: 375px;
 	height: 667px;
@@ -215,7 +248,7 @@ export default {
 	font-style: normal;
 	font-weight: 400;
 	font-size: 14px;
-	line-height: 160%;
+	/* line-height: 160%; */
 	color: #404040;
 	text-align: start;
 
@@ -265,7 +298,31 @@ p {
 	width: 18px;
 	cursor: pointer;
 }
+/* spinner */
+.spinner-container {
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	justify-content:center;
+	align-items: center;
+}
+.spinner {
+	color: #31AE54;
+	display: inline-block;
+  width: 44px;
+  height: 44px;
+  animation: spin 2s linear infinite;
+}
 
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 
 </style>

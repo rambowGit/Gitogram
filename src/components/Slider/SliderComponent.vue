@@ -14,8 +14,10 @@
 						:isActive=true
 						btnSize="big"
 						:repo="activeSlideRepo"
-						@onMoveLeft="transformLeft()"
-						@onMoveRight="transformRight()"
+						@onMoveLeft="transformLeft"
+						@onMoveRight="transformRight"						
+						@onFollow="starRepo"
+						:isReadmeLoading="loading"
 					/>
 				</div>
 				<div v-else>
@@ -34,7 +36,7 @@
 
 import SlideComponent from "../Slider/SlideComponent.vue";
 import SliderHeader from "./SliderHeader.vue";
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 
 export default {
@@ -45,7 +47,7 @@ export default {
 	},
 	data() {
 		return {
-			readmeData: {},
+			loading: false,
 			shiftVAlue: 350
 		};
 	},
@@ -68,46 +70,53 @@ export default {
 		activeSlideRepo() {
 			return this.repos[this.routeParam];
 		},
-		...mapState({
-			repos: state => state.repoModule.repo.items,
-		}),		
-	},
-	methods: {
+		// ...mapState({
+		// 	repos: state => state.repoModule.repo.items,
+		// }),		
 		...mapGetters({
-			getReadmeById: "readmeModule/getReadmeById"
-		}),
+			getReadmeById: "readmeModule/getReadmeById",
+			repos: ["getUnstarredRepos"]
+			// repos: "repoModule/getTrendingRepos"
+			
+		})
+	},
+	methods: {		
 		...mapActions({
-			getReadme: "readmeModule/getReadme"
+			getReadme: "readmeModule/getReadme",
+			setStar: "repoModule/setStar",
+			unStar: "repoModule/unStar"
 		}),
+		starRepo(id, status) {
+			// console.log("status: ", status);
+			status ? this.unStar(id) : this.setStar(id);
+		},
 		// readme для активного слайда
-		async getReadmeForActiveSlide() {
-			const {id, owner, name} = this.repos[this.routeParam];
+		async getReadmeForActiveSlide(routeParam) {			
+			this.loading = true;
+			const {id, owner, name} = this.repos[routeParam];
+			
 			// получаем и записываем в store
 			await this.getReadme({id, owner: owner.login, repo: name});
+			this.loading = false;
 		},
-
-		// readme для след. слайда
-		async getReadmeForNextSlide(routeParam) {
-			const {id, owner, name} = this.repos[routeParam];
-			// получаем и записываем в store
-			this.readmeData = await this.getReadme({id, owner: owner.login, repo: name});
-		},
+		
 		// листаем слайды влево
 		async transformLeft() {
 			this.delta = this.delta + this.shiftValue;
 			this.move = `translateX(${this.delta}px)`;
-			await this.getReadmeForNextSlide(this.routeParamPrev);
+			await this.getReadmeForActiveSlide(this.routeParamPrev);
 		},
+		
 		// листаем слайды вправо
 		async transformRight(){
 			this.delta = this.delta - this.shiftVAlue;
 			this.move = `translateX(${this.delta}px)`;
-			await this.getReadmeForNextSlide(this.routeParamNext);
+			await this.getReadmeForActiveSlide(this.routeParamNext);
 		}
 	},
+
 	async created() {
-		await this.getReadmeForActiveSlide();
-		console.log (typeof this.readmes[0]);
+		await this.getReadmeForActiveSlide(this.routeParam);
 	},
 	
 };
@@ -131,9 +140,12 @@ export default {
 	left: 50%;
 	margin-left: -188px;
 	transition: .4s;
+	/* opacity: .5; */
+}
+.active-slide {
+
 }
 .move-left {
-	
 	transform: translateX(-300px);
 }
 .move-right {

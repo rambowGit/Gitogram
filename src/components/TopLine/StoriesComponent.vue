@@ -14,17 +14,22 @@
 
 <script>
 import AvatarComponent from "./AvatarComponent.vue";
-import { mapState, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
 	name: "stories-component",
 	components: { AvatarComponent },
-
+	data(){
+		return {
+			items: null
+		};
+	},
 	computed: {
-		...mapState({
-			items: state => state.repoModule.repo.items
-		})
-			
+		// ...mapGetters({
+		// 	items: "repoModule/getTrendingRepos"
+		// }),
+		...mapGetters(["getUnstarredRepos"]),
+					
 	},
 	methods: {
 		...mapActions({
@@ -33,10 +38,15 @@ export default {
 		userStoryPressed(idx) {
 			this.$router.push("/slider/"+idx);
 		},
+		getItems() {
+			return this.getUnstarredRepos;
+		}
 	},
 
-	created() {
-		this.getPopularRepos();
+	// getUnstarredRepos должен быть асинхронным, иначе null
+	async created() {
+		await this.getPopularRepos();
+		this.items = await this.getItems();
 	}
 };
 </script>

@@ -1,4 +1,4 @@
-//отображение user issue posts
+<!-- отображение user issue posts -->
 <template>
   <div class="post__item" v-for="post in items" :key="post.id">
     <div class="post__header">
@@ -12,7 +12,8 @@
 <script>
 import PostHeader from "./PostHeader.vue";
 import PostFooter from "./PostFooter.vue";
-import  {getPopularRepos} from "../../services/GitHub.service";
+import { mapGetters, mapActions } from "vuex";
+
 
 export default {
 	name: "post-component",
@@ -20,20 +21,23 @@ export default {
 		PostHeader,
 		PostFooter,
 	},
-	data() {
-		return {
-			items: [],
-		};
+	computed: {
+		...mapGetters({
+			items: "starsModule/getStarredRepos"
+		})
 	},
-	async created(){
-		try {
-			const { data } = await getPopularRepos();
-			this.items = data.items;
-			// console.log("items: ", this.items);
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	methods: {
+		...mapActions({
+			loadStarredRepos: "starsModule/getStarredRepos"
+		})
+	},
+	async created() {
+		await this.loadStarredRepos();
+	},
+	
+	
+
+
 };
 </script>
 <style scoped>

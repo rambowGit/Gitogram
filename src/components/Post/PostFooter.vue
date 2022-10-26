@@ -4,7 +4,15 @@
       <issue-toggle v-on:togglerPressed="onShowComments" />
     </div>
     <div class="issue-comment" v-if="isShownComment">
-      <issue-comment :issues="issues" />
+			<div v-if="repo.issues.loading">
+				<skeleton-preloader
+					:quantity=1
+				/>
+			</div>
+			<!-- <skeleton-preloader
+					:quantity=1
+				/> -->
+      <issue-comment :issues="repo.issues.items" />
     </div>
     <div>
       <issue-date />
@@ -15,7 +23,8 @@
 import IssueToggle from "./IssueToggle.vue";
 import IssueComment from "./IssueComment.vue";
 import IssueDate from "./IssueDate.vue";
-import {getIssuesForRepo} from "../../services/GitHub.service";
+import SkeletonPreloader from "./SkeletonPreloader.vue";
+import { mapActions } from "vuex";
 
 export default {
 	name: "post-footer",
@@ -23,33 +32,32 @@ export default {
 		IssueToggle,
 		IssueComment,
 		IssueDate,
+		SkeletonPreloader
 	},
 	props: {
 		repo: {
 			type: Object,
-			required: false,
+			required: true,
 		},
 	},
 	data() {
 		return {
-			isShownComment: true,
+			isShownComment: false,
 			issues: []
 		};
 	},
 	methods: {
-		onShowComments(isShown) {
+		...mapActions({
+			getIssues: "starsModule/getIssues"
+		}),
+		async onShowComments(isShown) {
 			this.isShownComment = isShown;
+			await this.getIssues(this.repo.id);	
 		},
 	},
-	async created(){
-		try {
-			const { data } = await getIssuesForRepo(this.repo.owner.login, this.repo.name);
-			this.issues = data;
-			// console.log("issues: ", this.issues);
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	// async created(){
+	// 	await this.getIssues(this.repo.id);	
+	// }
 };
 </script>
 <style scoped>

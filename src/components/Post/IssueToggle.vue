@@ -20,7 +20,7 @@ export default {
 	},
 	data() {
 		return {
-			isShown: true,
+			isShown: false,
 		};
 	},
 	methods: {

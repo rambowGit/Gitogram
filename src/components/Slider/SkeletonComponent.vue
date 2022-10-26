@@ -22,7 +22,7 @@ export default {
 	}
 };
 </script>
-<style>
+<style scoped>
 /* skeleton */
 .skeleton-head {
 	margin-bottom: 18px;
