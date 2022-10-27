@@ -38,15 +38,15 @@ export default {
 		userStoryPressed(idx) {
 			this.$router.push("/slider/"+idx);
 		},
-		getItems() {
-			return this.getUnstarredRepos;
-		}
+		// getItems() {
+		// 	return this.getUnstarredRepos;
+		// }
 	},
 
 	// getUnstarredRepos должен быть асинхронным, иначе null
 	async created() {
 		await this.getPopularRepos();
-		this.items = await this.getItems();
+		this.items = await this.getUnstarredRepos;
 	}
 };
 </script>

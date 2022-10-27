@@ -13,7 +13,7 @@ export default {
 	},
 };
 </script>
-<style>
+<style scoped>
 .issue__date {
   font-family: "Inter";
   font-style: normal;

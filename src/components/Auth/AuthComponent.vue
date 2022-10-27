@@ -1,21 +1,19 @@
 <template >
-	<div>
-		<button	
-			@click="getCode"
-			class="btn-active btn"
-			>
-    <span class="btn-text">Login</span>       
-  </button>
+	<div 	@click="getCode">
+		<login-button/>
 	</div>
 </template>
 <script>
 
 import { getAuthCode, getToken } from "../../api/Auth.service";
+import LoginButton from "./LoginButton.vue";
 
 
 export default {
 	name: "auth-component",
-
+	components: {
+		LoginButton
+	},
 	methods: {
 		getCode () {
 			getAuthCode();			
