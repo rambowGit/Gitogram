@@ -116,7 +116,8 @@ export default {
 	computed: {
 		...mapGetters({
 			// items: "starsModule/getStarredRepos"
-			items: "repoModule/getTrendingRepos"
+			// items: "repoModule/getTrendingRepos"
+			items: ["getUnstarredRepos"]
 		}),
 		routeParam() {
 			return this.$route.params.id;

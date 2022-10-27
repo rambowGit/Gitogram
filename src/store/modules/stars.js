@@ -81,7 +81,7 @@ export default{
 		/**
 		 * получение issues для репозитория
 		 */
-		async getIssues (ctx, id){			
+		async loadIssues (ctx, id){			
 			ctx.getters.getRepoById(id);			
 			const { name, owner } = ctx.getters.getRepoById(id);
 					

@@ -9,9 +9,6 @@
 					:quantity=1
 				/>
 			</div>
-			<!-- <skeleton-preloader
-					:quantity=1
-				/> -->
       <issue-comment :issues="repo.issues.items" />
     </div>
     <div>
@@ -48,16 +45,18 @@ export default {
 	},
 	methods: {
 		...mapActions({
-			getIssues: "starsModule/getIssues"
+			loadIssues: "starsModule/loadIssues"
 		}),
+		
 		async onShowComments(isShown) {
 			this.isShownComment = isShown;
-			await this.getIssues(this.repo.id);	
+			// проверяем, есть ли уже issies в store
+			if (this.repo.issues) return;
+			
+			await this.loadIssues(this.repo.id);	
 		},
 	},
-	// async created(){
-	// 	await this.getIssues(this.repo.id);	
-	// }
+	
 };
 </script>
 <style scoped>
