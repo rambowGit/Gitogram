@@ -14,7 +14,12 @@
       <img :src="userStory.avatar_url" />
     </div>    
   </button>
-	<div v-if="!isProfile" class="avatar__name">{{ repoName }}</div>
+	<div 
+		v-if="!isProfile" 
+		class="avatar__name">
+		<a v-bind:href="userStory.html_url" target="_blank">{{ repoName }}</a>
+	</div>
+	
 </template>
 <script>
 export default {
@@ -34,13 +39,12 @@ export default {
 			type: String,
 			required: false,
 		},
-		// когда вызываем автарку для профиля
+		// когда вызываем автарку для профиля в шапке
 		isProfile: {
 			type: Boolean,
 			required: false,
 		},
 	},
-
 	methods: {
 		onPress() {
 			this.$emit("onPressUserStory");
@@ -109,6 +113,17 @@ img {
   font-size: 12px;
 	max-width: 100px;
 	overflow: hidden;
+	text-align: center;
+}
+
+.avatar__name > a {
+	text-decoration: none;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	line-height: 10px;
+	color: #000000;
+
 }
 
 /* iPad-mini */

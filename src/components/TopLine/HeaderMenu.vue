@@ -1,20 +1,25 @@
-/* Меню в правой части шапки */
+<!-- Меню в правой части шапки -->
 <template>
 	<nav>
     <ul class="menu__list">
-      <li class="menu__item">
+      <li 
+				class="menu__item home-link"
+				@click="goHome"
+				>
         <icon-component name="HomeIcon"/>
       </li>
       <!-- текущий пользователь передается в пропсы компонента avatar-component -->
-      <li class="menu__item">
+      <li class="menu__item"
+				@click="goProfile"
+				>
         <avatar-component
-          :userStory="repo"
+          :userStory="authUser"
           :isProfile="true"
 					:avatarWidth=37
         />
       </li>
       <li 
-				class="menu__item logout"
+				class="menu__item logout-link"
 				@click="logout"
 				>
         <icon-component name="LogoutIcon"/>
@@ -29,29 +34,27 @@ import IconComponent from "../../icons/IconComponent.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+	name: "header-menu",
 	components: {
 		AvatarComponent,
 		IconComponent,
-	},
-	name: "header-menu",
+	},	
 	computed: {
 		...mapGetters({
 			authUser: "userModule/getUserFromState"
 		}),
-		repo() {
-			// auth user profile
-			return {
-				id: this.authUser.id,
-				name: this.authUser.login,
-				avatar_url: this.authUser.avatar_url
-			};
-		}		
 	},
 	methods: {
 		...mapActions({
-			logout: "userModule/logout"
-		})
-	}
+			logout: "userModule/logout",
+		}),
+		goProfile(){
+			this.$router.push({ path: "/profile"});
+		},
+		goHome() {
+			this.$router.push({ name: "feeds", params: {}});
+		}
+	},
 };
 </script>
 <style scoped>
@@ -71,9 +74,10 @@ ul {
   color: #262626;
   width: 24px;
 }
-.logout {
+.logout-link, .home-link {
 	cursor: pointer;
 }
+
 
 /* iPad-mini */
 @media only screen and (max-width: 768px) {

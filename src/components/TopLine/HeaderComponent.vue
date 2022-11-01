@@ -1,7 +1,10 @@
 // шапка сайта. См. App.vue
 <template>
   <header class="header__wrapper">
-    <div class="header__container">
+    <div 
+		class="header__container" 
+		:style="{'heigth' : heigth + 'px'}"
+		>
       <div class="header--top">
         <slot name="headerLogo"></slot>
         <slot name="headerMenu"></slot>
@@ -15,6 +18,13 @@
 <script>
 export default {
 	name: "header-component",
+	props: {
+		heigth: {
+			type: Number,
+			required: false,
+			default: 228
+		}
+	}
 };
 </script>
 
@@ -25,7 +35,7 @@ export default {
 }
 .header__container {
   width: 1200px;
-  height: 228px;
+  /* height: 228px; */
   display: flex;
   flex-direction: column;
   padding-top: 40px;

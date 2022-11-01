@@ -1,4 +1,4 @@
-/* Компонент содержит список пользователей. Отображает их в галерее header */
+<!--  Компонент содержит список пользователей. Отображает их в галерее header -->
 <template lang="">
   <div class="stories__wrapper">
     <div class="story_item" v-for="(repo, index) in items" :key="repo.id">

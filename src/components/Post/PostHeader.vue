@@ -1,5 +1,5 @@
 <template>
-  <post-profile :story="post.owner" />
+  <post-profile :post="post.owner" />
   <div class="post-content">
     <post-content :post="post" />
   </div>

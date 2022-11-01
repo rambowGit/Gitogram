@@ -88,3 +88,31 @@ export const unstarRepo = ({owner, repo}) => {
 		console.log("Unstar: ", e);
 	}
 };
+
+
+/*
+ получение readme.md для указанного репозитория 
+ https://docs.github.com/en/rest/repos/repos#list-repositories-for-the-authenticated-user
+*/
+export const loadMyRepos = (visibility) => {
+	
+	//visibility: all, public, private
+	const params = new URLSearchParams;
+	params.append("visibility", `${visibility}`);
+	params.append("affiliation", "owner");
+
+	const contentHeader = "application/vnd.github+json";
+	try {
+		const response = axios.get("https://api.github.com/user/repos" , {
+			params,
+			headers: {
+				accept: contentHeader
+			}
+		});
+				
+		return response;
+		
+	} catch(error) {
+		console.log("error fetching readme: ", error);
+	}
+};

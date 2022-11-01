@@ -28,7 +28,8 @@ export default {
 			localStorage.setItem("token", token);
 			
 			// редирект на гл. страницу после получения токена
-			window.location.reload();
+			// window.location.reload();
+			location="/";
 			// this.$router.replace({ 
 			// 	name: "feeds", 
 			// 	params: {}

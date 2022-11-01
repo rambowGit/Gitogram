@@ -28,7 +28,7 @@ export default {
 	},
 	methods: {
 		...mapActions({
-			loadStarredRepos: "starsModule/getStarredRepos"
+			loadStarredRepos: "starsModule/loadStarredRepos"
 		})
 	},
 	async created() {

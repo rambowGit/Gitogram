@@ -65,7 +65,7 @@ export default{
 		 * получить лайкнутые репозитории
 		 * @param {*} param0 
 		 */
-		async getStarredRepos({commit}) {
+		async loadStarredRepos({commit}) {
 			commit("SET_REPO_LOADING", true);
 			try {
 				const response = await getStarsRepos();

@@ -35,6 +35,20 @@
       {{hoverText}}
     </span>        
   </button>
+	
+	<!-- small button -->
+	<button
+		v-if="size === 'small'"
+		@click="$emit('onFollowClick')"
+		:class="[loading || theme === 'grey' ? 'btn-inactive' :  'btn-active', 'btn-small']"
+  >
+    <span v-if="!hovered" class="btn-text">
+      <slot></slot>
+    </span>
+    <span v-if="hovered" class="btn-text">
+      {{hoverText}}
+    </span>        
+  </button>
 </template>
 
 <script>
@@ -86,6 +100,16 @@ export default {
 	.btn-middle {
     width: 217px;
     height: 35px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 11px auto;   
+  }
+	.btn-small {
+    width: 115px;
+    height: 42px;
     border-radius: 5px;
     display: flex;
     flex-direction: row;

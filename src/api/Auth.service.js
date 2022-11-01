@@ -8,7 +8,7 @@ const clientSecret = env.clientSecret;
 export function getAuthCode() {
 	const params = new URLSearchParams;
 	params.append("client_id", clientId);
-	params.append("scope", "public_repo read:user user:follow");	
+	params.append("scope", "repo user");
 	const githubAuthApi = "https://github.com/login/oauth/authorize";
 	window.location.href = `${githubAuthApi}?${params}`;
 }
