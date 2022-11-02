@@ -51,9 +51,9 @@ export default {
 		async onShowComments(isShown) {
 			this.isShownComment = isShown;
 			// проверяем, есть ли уже issies в store
-			if (this.repo.issues) return;
+			if (this.repo?.issues) return;
 			
-			await this.loadIssues(this.repo.id);	
+			await this.loadIssues(this.repo?.id);	
 		},
 	},
 	

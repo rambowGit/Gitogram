@@ -18,6 +18,7 @@ export default {
 	components: {
 		IconComponent,
 	},
+	emits: ["togglerPressed"],
 	data() {
 		return {
 			isShown: false,
