@@ -48,10 +48,10 @@ export default {
 			loadIssues: "starsModule/loadIssues"
 		}),
 		
-		async onShowComments(isShown) {
+		async onShowComments(isShown) {			
 			this.isShownComment = isShown;
 			// проверяем, есть ли уже issies в store
-			if (this.repo?.issues) return;
+			if (this.repo.issues.items) 	return;
 			
 			await this.loadIssues(this.repo?.id);	
 		},

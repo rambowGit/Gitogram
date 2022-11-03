@@ -30,6 +30,7 @@ onMounted(async () => {
 	await store.dispatch("userModule/loadMyFollowings");
 });
 
+
 </script>
 <style scoped>
 .profile-header {

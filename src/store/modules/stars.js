@@ -70,6 +70,9 @@ export default{
 			try {
 				const response = await getStarsRepos();
 				const data = await response.data;
+				// сразу добавим пустой объект issues issues для каждого репозитория
+				data.forEach(repo => repo.issues={});
+				
 				commit("SET_REPO_ITEMS", data);
 			} catch (error) {
 				commit("SET_REPO_ERROR", "Не удалось получить репозитории");

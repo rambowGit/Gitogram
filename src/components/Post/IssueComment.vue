@@ -1,8 +1,8 @@
 <template>
   <ul class="comment-container">
     <li class="comment-item" v-for="issue in issues" :key="issue.id">
-      <div class="issue-auhtor">{{ issue?.user.login }}</div>
-      <div class="issue-comment">{{ issue?.title }}</div>
+      <div class="issue-auhtor">{{ issue.user.login }}</div>
+      <div class="issue-comment">{{ issue.title }}</div>
     </li>
   </ul>
 </template>
